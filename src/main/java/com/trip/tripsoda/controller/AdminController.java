@@ -1,9 +1,9 @@
 package com.trip.tripsoda.controller;
 
-import com.trip.tripsoda.domain.Driver;
+import com.trip.tripsoda.domain.Admin;
 import com.trip.tripsoda.dto.PageDto;
 import com.trip.tripsoda.dto.PageMaker;
-import com.trip.tripsoda.service.DriverService;
+import com.trip.tripsoda.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -18,32 +18,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/driver")
-public class DriverController {
+@RequestMapping("/admin")
+public class AdminController {
 
-    private final DriverService driverService;
+    private final AdminService adminService;
 
     @GetMapping("/list")
     public void list(@ModelAttribute("pageDto") PageDto pageDto, Model model) {
-        log.info("pageDto: "+pageDto);
         Pageable pageable = pageDto.makePageable();
 
-        Page<Driver> drivers = driverService.getDriverList(pageDto.getCountry(), pageDto.getSize(), pageable);
+        Page<Admin> admins = adminService.getAdminList(pageDto.getCountry(), pageDto.getSize(), pageable);
 
-        model.addAttribute("drivers", new PageMaker<>(drivers));
+        model.addAttribute("admins", new PageMaker<>(admins));
     }
 
     @GetMapping("/register")
     public void register(@ModelAttribute("pageDto")PageDto pageDto) {
         log.info("register...");
-
     }
 
     @PostMapping("/register")
-    public String registerPost(Driver driver) {
-        log.info("driver: " + driver);
-        driverService.register(driver);
+    public String registerPost(Admin admin) {
+        adminService.register(admin);
 
-        return "redirect:/driver/list";
+        return "redirect:/admin/list";
     }
 }

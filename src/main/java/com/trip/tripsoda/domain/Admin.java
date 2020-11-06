@@ -8,11 +8,13 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class ADMIN {
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "admin_id")
     private Long id;
+
+    private String userid;
 
     private String password;
 
@@ -27,6 +29,8 @@ public class ADMIN {
     private String englishName;
 
     private String address;
+
+    private String country;
 
     private String joinDate;
 
