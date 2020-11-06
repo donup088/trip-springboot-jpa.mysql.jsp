@@ -54,5 +54,4 @@ public class PageMaker<T> {
         }
         this.nextPage = startPage.getPageNumber() + 1 <= totalPageNum ? startPage : null;
     }
-
 }

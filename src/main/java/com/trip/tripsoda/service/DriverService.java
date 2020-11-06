@@ -2,6 +2,7 @@ package com.trip.tripsoda.service;
 
 import com.trip.tripsoda.domain.Driver;
 import com.trip.tripsoda.repository.driver.DriverRepository;
+import com.trip.tripsoda.repository.driver.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,8 @@ public class DriverService {
 
     private final DriverRepository driverRepository;
 
+    private final ProfileRepository profileRepository;
+
     public Page<Driver> getDriverList(String country, int size, Pageable pageable) {
         return driverRepository.findAll(country, size, pageable);
     }
@@ -22,5 +25,6 @@ public class DriverService {
     @Transactional
     public void register(Driver driver) {
         driverRepository.save(driver);
+        //TODO: 사진 데이터 들어가도록 구현 필요
     }
 }

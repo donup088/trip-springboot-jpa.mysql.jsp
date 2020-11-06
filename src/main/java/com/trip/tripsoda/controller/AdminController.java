@@ -1,6 +1,7 @@
 package com.trip.tripsoda.controller;
 
 import com.trip.tripsoda.domain.Admin;
+import com.trip.tripsoda.dto.AdminRegisterDto;
 import com.trip.tripsoda.dto.PageDto;
 import com.trip.tripsoda.dto.PageMaker;
 import com.trip.tripsoda.service.AdminService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 @Controller
 @Slf4j
@@ -38,9 +41,28 @@ public class AdminController {
     }
 
     @PostMapping("/register")
-    public String registerPost(Admin admin) {
+    public String registerPost(@Valid AdminRegisterDto adminRegisterDto) {
+        Admin admin = dtoToAdmin(adminRegisterDto);
         adminService.register(admin);
 
         return "redirect:/admin/list";
+    }
+
+    private Admin dtoToAdmin(AdminRegisterDto adminRegisterDto) {
+        return Admin.builder()
+                .address(adminRegisterDto.getAddress())
+                .birth(adminRegisterDto.getBirth())
+                .country(adminRegisterDto.getCountry())
+                .department(adminRegisterDto.getDepartment())
+                .email(adminRegisterDto.getEmail())
+                .englishName(adminRegisterDto.getEnglishName())
+                .etc(adminRegisterDto.getEtc())
+                .job(adminRegisterDto.getJob())
+                .joinDate(adminRegisterDto.getJoinDate())
+                .password(adminRegisterDto.getPassword())
+                .phone(adminRegisterDto.getPhone())
+                .name(adminRegisterDto.getName())
+                .userid(adminRegisterDto.getUserid())
+                .build();
     }
 }

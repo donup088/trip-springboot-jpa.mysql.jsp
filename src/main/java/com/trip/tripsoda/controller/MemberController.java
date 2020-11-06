@@ -1,6 +1,7 @@
 package com.trip.tripsoda.controller;
 
 import com.trip.tripsoda.domain.Member;
+import com.trip.tripsoda.dto.MemberRegisterDto;
 import com.trip.tripsoda.dto.PageDto;
 import com.trip.tripsoda.dto.PageMaker;
 import com.trip.tripsoda.service.MemberService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -33,7 +36,6 @@ public class MemberController {
         Page<Member> members = memberService.getMemberList(pageDto.getCountry(), pageDto.getSize(), pageable);
 
         model.addAttribute("members", new PageMaker<>(members));
-        System.out.println("new PageMaker<>(members) = " + new PageMaker<>(members));
     }
 
     @GetMapping("/register")
@@ -43,10 +45,30 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public String registerPost(Member member) {
-        log.info("member: " + member);
+    public String registerPost(@Valid MemberRegisterDto memberDto) {
+        log.info("memberDto: " + memberDto);
+        Member member = dtoToMember(memberDto);
+
         memberService.joinMember(member);
 
         return "redirect:/member/list";
+    }
+
+    private Member dtoToMember(MemberRegisterDto memberDto) {
+        return Member.builder()
+                .name(memberDto.getName())
+                .address(memberDto.getAddress())
+                .alias(memberDto.getAlias())
+                .country(memberDto.getCountry())
+                .birth(memberDto.getBirth())
+                .email(memberDto.getEmail())
+                .etc(memberDto.getEtc())
+                .phone(memberDto.getPhone())
+                .password(memberDto.getPassword())
+                .emailPost(memberDto.isEmailPost())
+                .messagePost(memberDto.isMessagePost())
+                .userid(memberDto.getUserid())
+                .address(memberDto.getAddress())
+                .build();
     }
 }

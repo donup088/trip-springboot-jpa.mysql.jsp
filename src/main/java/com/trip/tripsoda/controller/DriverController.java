@@ -1,6 +1,7 @@
 package com.trip.tripsoda.controller;
 
 import com.trip.tripsoda.domain.Driver;
+import com.trip.tripsoda.dto.DriverRegisterDto;
 import com.trip.tripsoda.dto.PageDto;
 import com.trip.tripsoda.dto.PageMaker;
 import com.trip.tripsoda.service.DriverService;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -25,7 +28,6 @@ public class DriverController {
 
     @GetMapping("/list")
     public void list(@ModelAttribute("pageDto") PageDto pageDto, Model model) {
-        log.info("pageDto: "+pageDto);
         Pageable pageable = pageDto.makePageable();
 
         Page<Driver> drivers = driverService.getDriverList(pageDto.getCountry(), pageDto.getSize(), pageable);
@@ -36,14 +38,37 @@ public class DriverController {
     @GetMapping("/register")
     public void register(@ModelAttribute("pageDto")PageDto pageDto) {
         log.info("register...");
-
     }
 
     @PostMapping("/register")
-    public String registerPost(Driver driver) {
-        log.info("driver: " + driver);
+    public String registerPost(@Valid DriverRegisterDto driverRegisterDto) {
+        log.info("driverDto"+driverRegisterDto);
+        Driver driver = dtoToDriver(driverRegisterDto);
+
         driverService.register(driver);
 
         return "redirect:/driver/list";
+    }
+
+
+    private Driver dtoToDriver(DriverRegisterDto driverRegisterDto) {
+        return Driver.builder()
+                .driverCount(driverRegisterDto.getDriverCount())
+                .address(driverRegisterDto.getAddress())
+                .birth(driverRegisterDto.getBirth())
+                .car(driverRegisterDto.getCar())
+                .carNumber(driverRegisterDto.getCarNumber())
+                .country(driverRegisterDto.getCountry())
+                .complain(driverRegisterDto.getComplain())
+                .department(driverRegisterDto.getDepartment())
+                .email(driverRegisterDto.getEmail())
+                .etc(driverRegisterDto.getEtc())
+                .name(driverRegisterDto.getName())
+                .phone(driverRegisterDto.getPhone())
+                .region(driverRegisterDto.getRegion())
+                .score(driverRegisterDto.getScore())
+                .userid(driverRegisterDto.getUserid())
+                .profile(driverRegisterDto.getProfile())
+                .build();
     }
 }

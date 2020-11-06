@@ -1,9 +1,7 @@
 package com.trip.tripsoda.service;
 
 import com.trip.tripsoda.domain.Admin;
-import com.trip.tripsoda.domain.Driver;
 import com.trip.tripsoda.repository.admin.AdminRepository;
-import com.trip.tripsoda.repository.driver.DriverRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

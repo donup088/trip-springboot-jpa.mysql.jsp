@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 @Setter
 @ToString
 public class PageDto {
-    private static final int DEFAULT_MIN_SIZE = 5;
+    private static final int DEFAULT_MIN_SIZE = 1;
     private static final int DEFAULT_SIZE = 10;
     private static final int DEFAULT_MAX_SIZE = 50;
 
