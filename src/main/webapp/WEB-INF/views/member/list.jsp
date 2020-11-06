@@ -13,8 +13,8 @@
         <br>
         <ul class="nav nav-tabs nav-justified">
             <li class="active"><a href="/member/list">일반회원</a></li>
-            <li><a href="/member/driver">기사회원</a></li>
-            <li><a href="/member/admin">관리자</a></li>
+            <li><a href="/driver/list">기사회원</a></li>
+            <li><a href="/admin/list">관리자</a></li>
         </ul>
         <br>
 

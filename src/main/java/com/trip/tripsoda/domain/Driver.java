@@ -14,6 +14,8 @@ public class Driver {
     @Column(name = "driver_id")
     private Long id;
 
+    private String userid;
+
     private String address;
 
     private String region;
@@ -24,12 +26,18 @@ public class Driver {
 
     private String phone;
 
+    private String country;
+
     private String car;
 
     private String carNumber;
 
+    private String email;
+
 //    @OneToOne
 //    private License license;
+
+    private String department;
 
     private int driverCount;
 

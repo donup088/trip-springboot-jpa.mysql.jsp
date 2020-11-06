@@ -1,7 +1,7 @@
 package com.trip.tripsoda.service;
 
 import com.trip.tripsoda.domain.Member;
-import com.trip.tripsoda.repository.MemberRepository;
+import com.trip.tripsoda.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

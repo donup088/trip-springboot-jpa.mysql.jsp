@@ -5,21 +5,21 @@
 <div class="col-sm-9 page">
     <div class="row">
         <div class="container-fluid">
-            <p>홈 > 회원정보 > 일반회원</p>
+            <p>홈 > 회원정보 > 기사회원</p>
         </div>
         <div class="col-lg-12">
             <h3 class="page-header" style="color: gray">회원정보 연동 및 관리</h3>
         </div>
         <br>
         <ul class="nav nav-tabs nav-justified">
-            <li class="active"><a href="/member/list">일반회원</a></li>
-            <li><a href="/member/driver">기사회원</a></li>
-            <li><a href="/member/admin">관리자</a></li>
+            <li ><a href="/member/list">일반회원</a></li>
+            <li class="active"><a href="/driver/list">기사회원</a></li>
+            <li><a href="/admin/list">관리자</a></li>
         </ul>
         <br>
 
         <div class="container">
-            <form id="optForm" action="/member/list" method="get" style="display: inline">
+            <form id="optForm" action="/driver/list" method="get" style="display: inline">
                 <select id="country">
                     <option value="" <c:out value="${pageDto.country == 'null' ? 'selected': ''}"/>>국적별 분류</option>
                     <option value="KOREA" <c:out value="${pageDto.country eq 'KOREA' ? 'selected': ''}"/>>KOREA</option>
@@ -36,8 +36,8 @@
                     <option value=10 <c:out value="${pageDto.size eq 10 ? 'selected': ''}"/>>10건 노출</option>
                 </select>
 
-                <input type="hidden" name="page" value="${members.currentPageNum}">
-                <input type="hidden" name="size" value="${members.currentPage.pageSize}">
+                <input type="hidden" name="page" value="${drivers.currentPageNum}">
+                <input type="hidden" name="size" value="${drivers.currentPage.pageSize}">
                 <input type="hidden" name="country" value="${pageDto.country}">
             </form>
 
@@ -56,19 +56,19 @@
                     <th>전화번호</th>
                     <th>이메일</th>
                     <th>국적</th>
-                    <th>구매내역</th>
+                    <th>운행내역</th>
                     <th>문의사항</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${members.result.content}" var="members">
+                <c:forEach items="${drivers.result.content}" var="drivers">
                     <tr>
-                        <td><c:out value="${members.id}"/></td>
-                        <td><a href="#"><c:out value="${members.userid}"/></a></td>
-                        <td><c:out value="${members.name}"/></td>
-                        <td><c:out value="${members.phone}"/></td>
-                        <td><c:out value="${members.email}"/></td>
-                        <td><c:out value="${members.country}"/></td>
+                        <td><c:out value="${drivers.id}"/></td>
+                        <td><a href="#"><c:out value="${drivers.userid}"/></a></td>
+                        <td><c:out value="${drivers.name}"/></td>
+                        <td><c:out value="${drivers.phone}"/></td>
+                        <td><c:out value="${drivers.email}"/></td>
+                        <td><c:out value="${drivers.country}"/></td>
                         <td><a href="#">2건</a></td>
                         <td><a href="#">2건</a></td>
                     </tr>
@@ -80,19 +80,19 @@
                 <nav>
                     <div class="text-center">
                         <ul class="pagination">
-                            <c:if test="${members.prevPage!=null}">
+                            <c:if test="${drivers.prevPage!=null}">
                                 <li class="page-item">
-                                    <a href="${members.prevPage.pageNumber+1}">PREV</a>
+                                    <a href="${drivers.prevPage.pageNumber+1}">PREV</a>
                                 </li>
                             </c:if>
-                            <c:forEach items="${members.pageList}" var="p">
-                                <li class="page-item ${p.pageNumber==members.currentPageNum-1?"active":''}">
+                            <c:forEach items="${drivers.pageList}" var="p">
+                                <li class="page-item ${p.pageNumber==drivers.currentPageNum-1?"active":''}">
                                     <a href="${p.pageNumber+1}">${p.pageNumber+1}</a>
                                 </li>
                             </c:forEach>
-                            <c:if test="${members.nextPage!=null}">
+                            <c:if test="${drivers.nextPage!=null}">
                                 <li class="page-item">
-                                    <a href="${members.nextPage.pageNumber+1}">NEXT</a>
+                                    <a href="${drivers.nextPage.pageNumber+1}">NEXT</a>
                                 </li>
                             </c:if>
                         </ul>
@@ -103,14 +103,14 @@
                 </select>
             </div>
 
-            <form id="list" action="/member/list" method="get">
+            <form id="list" action="/driver/list" method="get">
                 <div id="button" style="margin-top: 20px" class="pull-right">
                     <button class="btn btn-group" id="delete">삭제하기</button>
                     <button class="btn btn-group" id="add">추가하기</button>
                 </div>
 
-                <input type="hidden" name="page" value="${members.currentPageNum}">
-                <input type="hidden" name="size" value="${members.currentPage.pageSize}">
+                <input type="hidden" name="page" value="${drivers.currentPageNum}">
+                <input type="hidden" name="size" value="${drivers.currentPage.pageSize}">
                 <input type="hidden" name="country" value="${pageDto.country}">
             </form>
         </div>
@@ -139,9 +139,6 @@
             var country = $('#country').find(":selected").val();
             var size = $('#count').find(":selected").val();
 
-            console.log(country);
-            console.log(size);
-
             optForm.find("input[name='pageNum']").val("1");
             optForm.find("input[name='country']").val(country);
 
@@ -152,7 +149,7 @@
 
         $("#add").on("click",function (e) {
             e.preventDefault();
-            listForm.attr("action","/member/register");
+            listForm.attr("action","/driver/register");
             listForm.submit();
         });
     })

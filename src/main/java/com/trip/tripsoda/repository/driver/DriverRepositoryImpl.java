@@ -1,45 +1,44 @@
-package com.trip.tripsoda.repository;
+package com.trip.tripsoda.repository.driver;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.trip.tripsoda.domain.Member;
+import com.trip.tripsoda.domain.Driver;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
 
-import static com.trip.tripsoda.domain.QMember.*;
+import static com.trip.tripsoda.domain.QDriver.*;
 
-public class MemberRepositoryImpl implements MemberCustomRepository {
 
+public class DriverRepositoryImpl implements DriverCustomRepository{
     private JPAQueryFactory queryFactory;
 
-    public MemberRepositoryImpl(EntityManager em) {
+    public DriverRepositoryImpl(EntityManager em) {
         queryFactory = new JPAQueryFactory(em);
     }
 
     @Override
-    public Page<Member> findAll(String country, int count, Pageable pageable) {
+    public Page<Driver> findAll(String country, int count, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
-        builder.and(member.id.gt(0));
+        builder.and(driver.id.gt(0));
 
         if (country != null&& !country.equals("")) {
-            builder.and(member.country.eq(country));
+            builder.and(driver.country.eq(country));
         }
 
 
-        QueryResults<Member> result = queryFactory.selectFrom(member)
-                .orderBy(member.id.desc())
+        QueryResults<Driver> result = queryFactory.selectFrom(driver)
+                .orderBy(driver.id.desc())
                 .where(builder)
                 .offset(pageable.getOffset())
                 .limit(count)
                 .fetchResults();
 
-        List<Member> content = result.getResults();
+        List<Driver> content = result.getResults();
         long total = result.getTotal();
 
         return new PageImpl<>(content, pageable, total);
