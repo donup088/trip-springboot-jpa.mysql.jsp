@@ -4,6 +4,9 @@ import com.trip.tripsoda.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,5 +52,31 @@ class MemberRepositoryTest {
             memberRepository.save(member);
         }
 
+    }
+
+    @Test
+    public void 페이징테스트() {
+        PageRequest pageRequest = PageRequest.of(0, 5, Sort.Direction.DESC, "id");
+
+        Page<Member> result = memberRepository.findAll(null, 5, pageRequest);
+
+        for (Member member : result) {
+            System.out.println("member = " + member);
+        }
+
+        assertEquals(result.getSize(),5);
+    }
+
+    @Test
+    public void 페이징테스트나라별() {
+        PageRequest pageRequest = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
+
+        Page<Member> result = memberRepository.findAll("KOREA", 10, pageRequest);
+
+        for (Member member : result) {
+            System.out.println("member = " + member);
+        }
+
+        assertEquals(result.getSize(),10);
     }
 }

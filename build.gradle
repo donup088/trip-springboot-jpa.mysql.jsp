@@ -30,6 +30,7 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	implementation 'com.querydsl:querydsl-jpa'
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
 	implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper'
 	implementation group: 'jstl', name: 'jstl', version: '1.2'
 }

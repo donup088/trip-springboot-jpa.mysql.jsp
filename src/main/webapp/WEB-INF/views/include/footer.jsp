@@ -47,6 +47,8 @@
         border-bottom: 1px solid #e7e7e7;
         font-size: 15px;
         width: 100%;
+        font-weight: bold;
+
     }
 
     .col-sm-3{

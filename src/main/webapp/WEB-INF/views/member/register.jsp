@@ -12,110 +12,124 @@
             <li><a href="/member/driver">기사회원</a></li>
             <li><a href="/member/admin">관리자</a></li>
         </ul>
+        <div class="row">
+            <form action="/member/list" method="get" style="margin-top: 50px">
+                <input type="hidden" name="page" value="${pageDto.page}">
+                <input type="hidden" name="size" value="${pageDto.size}">
+                <input type="hidden" name="country" value="${pageDto.country}">
+                <button id="close" class="btn btn-default btn-lg pull-right">닫기</button>
+            </form>
 
-        <form class="form-horizontal" action="/member/register" method="post" style="margin-top: 50px">
-            <div id="btn" class="pull-right">
-                <button id="close" class="btn btn-default btn-lg pull-right ">닫기</button>
-                <button type="submit" id="register" class="btn btn-default btn-lg pull-right">등록</button>
-            </div>
-
-            <div class="form-group">
-                <label for="userid" class="col-sm-4 control-label">ID</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="userid" name="userid">
+            <form id="registerForm" class="form-horizontal" action="/member/register" method="post" style="margin-top: 50px">
+                <div id="btn">
+                    <button type="submit" id="register" class="btn btn-default btn-lg pull-right">등록</button>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="password" class="col-sm-4 control-label">비밀번호</label>
-                <div class="col-sm-6">
-                    <input type="password" class="form-control" id="password" name="password">
+                <div class="form-group">
+                    <label for="userid" class="col-sm-4 control-label">ID</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="userid" name="userid">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="name" class="col-sm-4 control-label">이름</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="name" name="name">
+                <div class="form-group">
+                    <label for="password" class="col-sm-4 control-label">비밀번호</label>
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="birth" class="col-sm-4 control-label">생년월일</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="birth" name="birth">
+                <div class="form-group">
+                    <label for="name" class="col-sm-4 control-label">이름</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="country" class="col-sm-4 control-label">국적</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="country" name="country">
+                <div class="form-group">
+                    <label for="birth" class="col-sm-4 control-label">생년월일</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="birth" name="birth">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="phone" class="col-sm-4 control-label">전화번호</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="phone" name="phone">
+                <div class="form-group">
+                    <label for="country" class="col-sm-4 control-label">국적</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="country" name="country">
+                    </div>
                 </div>
-            </div>
 
-
-            <div class="form-group">
-                <label for="alias" class="col-sm-4 control-label">별명</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="alias" name="alias">
+                <div class="form-group">
+                    <label for="phone" class="col-sm-4 control-label">전화번호</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="phone" name="phone">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="email" class="col-sm-4 control-label">이메일</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="email" name="email">
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label for="address" class="col-sm-4 control-label">주소</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="address" name="address">
+                <div class="form-group">
+                    <label for="alias" class="col-sm-4 control-label">별명</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="alias" name="alias">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-sm-4 control-label">이메일 수신</label>
-                <div class="col-sm-6">
-                    <input type="radio" name="emailPost" value="true" checked/> 수신
-                    <input type="radio" name="emailPost" value="false"/> 미수신
+                <div class="form-group">
+                    <label for="email" class="col-sm-4 control-label">이메일</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="email" name="email">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-sm-4 control-label">문자 수신</label>
-                <div class="col-sm-6">
-                    <input type="radio" name="messagePost" value="true" checked/> 수신
-                    <input type="radio" name="messagePost" value="false"/> 미수신
+                <div class="form-group">
+                    <label for="address" class="col-sm-4 control-label">주소</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="address" name="address">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="etc" class="col-sm-4 control-label">기타</label>
-                <div class="col-sm-6">
-                    <textarea rows="5" class="form-control" id="etc" name="etc"></textarea>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">이메일 수신</label>
+                    <div class="col-sm-6">
+                        <input type="radio" name="emailPost" value="true" checked/> 수신
+                        <input type="radio" name="emailPost" value="false"/> 미수신
+                    </div>
                 </div>
-            </div>
-        </form>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">문자 수신</label>
+                    <div class="col-sm-6">
+                        <input type="radio" name="messagePost" value="true" checked/> 수신
+                        <input type="radio" name="messagePost" value="false"/> 미수신
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="etc" class="col-sm-4 control-label">기타</label>
+                    <div class="col-sm-6">
+                        <textarea rows="5" class="form-control" id="etc" name="etc"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
 </div>
+
 </body>
 <script>
     $(document).ready(function () {
-        $("#close").on("click", function (e) {
-            e.preventDefault();
-            self.location = "/member/list";
-        })
+        // var registerForm=$("#registerForm");
+        //
+        // $("#close").on("click",function (e) {
+        //     e.preventDefault();
+        //     registerForm.attr("action","/member/list");
+        //     registerForm.attr("method","get");
+        //
+        //     registerForm.submit();
+        // })
+
 
     })
 </script>

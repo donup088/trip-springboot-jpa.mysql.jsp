@@ -17,19 +17,13 @@
         <a class="navbar-brand" href="/index.html" style="color: white"><b>TRIPSODA</b></a>
     </div>
 
-    <div class="nav navbar-default" id="nav_menu">
-        <div class="container-fluid">
-            <div class="navbar-header col-sm-3">
-                <p>메뉴</p>
-            </div>
-            <div class="col-sm-9" id="navigation_home">
-                <p>홈</p>
-            </div>
-        </div>
-    </div>
+
 
     <nav class="col-sm-3" id="sidebar">
         <ul class="nav navbar-default nav-stacked">
+            <div class="container-fluid">
+                <p>메뉴</p>
+            </div>
             <li>
                 <a href="#">
                     ADMIN 1
