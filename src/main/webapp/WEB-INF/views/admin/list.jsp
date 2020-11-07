@@ -127,7 +127,6 @@
 
         $(".pagination a").on("click", function (e) {
             e.preventDefault();
-            console.log($(this));
             listForm.find('[name="page"]').val($(this).attr('href'))
             listForm.submit();
         });

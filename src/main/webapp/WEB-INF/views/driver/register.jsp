@@ -164,15 +164,26 @@
         var registerForm = $("#registerForm");
 
         $("#register").on("click", function (e) {
-            registerForm.submit();
+            var str = "";
+            var profileDiv=$(".profileResult div");
+            str+="<input type='hidden' name='profile.fileName' value='"+profileDiv.data("filename")+"'>";
+            str+="<input type='hidden' name='profile.uuid' value='"+profileDiv.data("uuid")+"'>";
+            str+="<input type='hidden' name='profile.uploadPath' value='"+profileDiv.data("path")+"'>";
+            str+="<input type='hidden' name='profile.fileType' value='"+profileDiv.data("type")+"'>";
+            registerForm.append(str).submit();
         });
 
         var profileResult = $(".profileResult")
+
         function showProfile(result) {
+            console.log("result:" + result)
             profileResult.html("");
             var str = "";
             var filepath = encodeURIComponent(result.uploadPath + "/s_" + result.uuid + "_" + result.fileName);
+            str += "<div data-path='" + result.uploadPath + "'";
+            str += " data-uuid='" + result.uuid + "' data-filename='" + result.fileName + "' data-type='" + result.image + "'>";
             str += "<img src='/display?fileName=" + filepath + "'>";
+            str += "</div>";
             profileResult.append(str);
         }
 

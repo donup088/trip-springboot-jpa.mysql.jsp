@@ -1,13 +1,11 @@
 package com.trip.tripsoda.dto;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 @Getter
-@Setter
 @ToString
 public class PageDto {
     private static final int DEFAULT_MIN_SIZE = 1;

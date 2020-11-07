@@ -49,7 +49,6 @@ public class Driver {
 
     private String etc;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "driver", cascade = CascadeType.ALL)
     private Profile profile;
-    //TODO: 차량 사진 추가해야함
 }

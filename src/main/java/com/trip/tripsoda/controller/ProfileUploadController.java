@@ -19,9 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -30,7 +28,6 @@ public class ProfileUploadController {
     @PostMapping("/uploadProfile")
     @ResponseBody
     public ResponseEntity<ProfileDto> uploadAjaxPost(MultipartFile[] uploadFile) {
-        log.info("UploadController upload!!!----------------");
         String uploadFolder = "C:\\upload";
         String uploadFolderPath = getFolder();
         File uploadPath = new File(uploadFolder, uploadFolderPath);
@@ -40,7 +37,6 @@ public class ProfileUploadController {
         MultipartFile file = uploadFile[0];
 
         ProfileDto profileDto = new ProfileDto();
-        log.info("Upload File Name: " + file.getOriginalFilename());
         String uploadFileName = file.getOriginalFilename();
         profileDto.setFileName(uploadFileName);
 
@@ -55,7 +51,7 @@ public class ProfileUploadController {
             if (checkImageType(saveFile)) {
                 profileDto.setImage(true);
                 FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-                Thumbnailator.createThumbnail(new FileInputStream(new File(uploadPath, uploadFileName)), thumbnail, 100, 100);
+                Thumbnailator.createThumbnail(new FileInputStream(new File(uploadPath, uploadFileName)), thumbnail, 300, 300);
                 thumbnail.close();
             }
         } catch (Exception e) {

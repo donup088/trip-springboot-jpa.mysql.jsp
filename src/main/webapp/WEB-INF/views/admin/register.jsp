@@ -16,18 +16,9 @@
             <li class="active"><a href="/admin/list">관리자</a></li>
         </ul>
         <div class="row">
-            <form action="/admin/list" method="get" style="margin-top: 50px">
-                <input type="hidden" name="page" value="${pageDto.page}">
-                <input type="hidden" name="size" value="${pageDto.size}">
-                <input type="hidden" name="country" value="${pageDto.country}">
-                <button id="close" class="btn btn-default btn-lg pull-right">뒤로가기</button>
-            </form>
+            <div class="col-sm-6">
 
             <form id="registerForm" class="form-horizontal" action="/admin/register" method="post" style="margin-top: 50px">
-                <div id="btn">
-                    <button type="submit" id="register" class="btn btn-default btn-lg pull-right">등록</button>
-                </div>
-
                 <div class="form-group">
                     <label for="userid" class="col-sm-4 control-label">ID</label>
                     <div class="col-sm-6">
@@ -119,6 +110,17 @@
                     </div>
                 </div>
             </form>
+            </div>
+            <div class="col-sm-6">
+                <div style="margin-top: 50px">
+                    <form action="/driver/list" method="get" style="display: inline">
+                        <input type="hidden" name="page" value="${pageDto.page}">
+                        <input type="hidden" name="size" value="${pageDto.size}">
+                        <input type="hidden" name="country" value="${pageDto.country}">
+                        <button id="close" class="btn btn-default btn-lg pull-right">뒤로가기</button>
+                    </form>
+                    <button id="register" class="btn btn-default btn-lg pull-right">등록</button>
+                </div>
         </div>
     </div>
 
@@ -127,7 +129,11 @@
 </body>
 <script>
     $(document).ready(function () {
+        var registerForm = $("#registerForm");
 
+        $("#register").on("click", function (e) {
+            registerForm.submit();
+        });
     })
 </script>
 
@@ -146,7 +152,7 @@
     }
 
     #register {
-        margin-right: 30px;
+        margin-right: 100px;
     }
 
     #register, #close {
@@ -154,16 +160,8 @@
         color: black;
     }
 
-    #btn {
-        width: 100%;
-    }
-
-    label {
-        font-size: 12px;
-    }
-
     .form-group {
-        width: 400px;
+        width: 550px;
     }
 </style>
 <%@include file="../include/footer.jsp" %>

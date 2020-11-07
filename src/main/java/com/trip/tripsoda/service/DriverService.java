@@ -1,6 +1,7 @@
 package com.trip.tripsoda.service;
 
 import com.trip.tripsoda.domain.Driver;
+import com.trip.tripsoda.domain.Profile;
 import com.trip.tripsoda.repository.driver.DriverRepository;
 import com.trip.tripsoda.repository.driver.ProfileRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,9 @@ public class DriverService {
 
     @Transactional
     public void register(Driver driver) {
-        driverRepository.save(driver);
-        //TODO: 사진 데이터 들어가도록 구현 필요
+        Driver saveDriver = driverRepository.save(driver);
+        Profile profile = saveDriver.getProfile();
+        profile.setDriver(saveDriver);
+        profileRepository.save(profile);
     }
 }
