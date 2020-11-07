@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -29,5 +31,13 @@ public class DriverService {
         Profile profile = saveDriver.getProfile();
         profile.setDriver(saveDriver);
         profileRepository.save(profile);
+    }
+
+    @Transactional
+    public void deleteDriver(Long id) {
+        Optional<Driver> findDriver = driverRepository.findById(id);
+        String uuid = findDriver.get().getProfile().getUuid();
+        profileRepository.deleteById(uuid);
+        driverRepository.deleteById(id);
     }
 }

@@ -151,6 +151,19 @@
             listForm.attr("action","/admin/register");
             listForm.submit();
         });
+
+        $("#delete").on("click", function (e) {
+            var str = "";
+            e.preventDefault();
+            var deleteId = prompt("삭제할 admin의 번호를 입력하세요.");
+            listForm.attr("action", "/admin/delete");
+            listForm.attr("method", "post");
+            str += "<input type='hidden' name='id'  value='" + deleteId + "'>";
+
+            listForm.append(str);
+            listForm.submit();
+        });
+
     })
 </script>
 

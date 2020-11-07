@@ -11,10 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -44,6 +41,13 @@ public class AdminController {
     public String registerPost(@Valid AdminRegisterDto adminRegisterDto) {
         Admin admin = dtoToAdmin(adminRegisterDto);
         adminService.register(admin);
+
+        return "redirect:/admin/list";
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam("id") Long id) {
+        adminService.deleteAdmin(id);
 
         return "redirect:/admin/list";
     }

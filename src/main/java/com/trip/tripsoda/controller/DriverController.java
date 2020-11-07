@@ -11,10 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -50,6 +47,12 @@ public class DriverController {
         return "redirect:/driver/list";
     }
 
+    @PostMapping("/delete")
+    public String delete(@RequestParam("id") Long id) {
+        driverService.deleteDriver(id);
+
+        return "redirect:/driver/list";
+    }
 
     private Driver dtoToDriver(DriverRegisterDto driverRegisterDto) {
         return Driver.builder()

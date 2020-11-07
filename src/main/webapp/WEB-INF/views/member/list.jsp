@@ -108,7 +108,6 @@
                     <button class="btn btn-group" id="delete">삭제하기</button>
                     <button class="btn btn-group" id="add">추가하기</button>
                 </div>
-
                 <input type="hidden" name="page" value="${members.currentPageNum}">
                 <input type="hidden" name="size" value="${members.currentPage.pageSize}">
                 <input type="hidden" name="country" value="${pageDto.country}">
@@ -149,9 +148,21 @@
         });
 
 
-        $("#add").on("click",function (e) {
+        $("#add").on("click", function (e) {
             e.preventDefault();
-            listForm.attr("action","/member/register");
+            listForm.attr("action", "/member/register");
+            listForm.submit();
+        });
+
+        $("#delete").on("click", function (e) {
+            var str = "";
+            e.preventDefault();
+            var deleteId = prompt("삭제할 user의 번호를 입력하세요.");
+            listForm.attr("action", "/member/delete");
+            listForm.attr("method", "post");
+            str += "<input type='hidden' name='id'  value='" + deleteId + "'>";
+
+            listForm.append(str);
             listForm.submit();
         });
     })

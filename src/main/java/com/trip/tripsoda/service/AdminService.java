@@ -23,4 +23,9 @@ public class AdminService {
     public void register(Admin admin) {
         adminRepository.save(admin);
     }
+
+    @Transactional
+    public void deleteAdmin(Long id) {
+        adminRepository.deleteById(id);
+    }
 }
