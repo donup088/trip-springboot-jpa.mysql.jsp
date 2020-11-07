@@ -30,7 +30,7 @@ public class MemberController {
         log.info("pageDto: " + pageDto);
         Pageable pageable = pageDto.makePageable();
 
-        Page<Member> members = memberService.getMemberList(pageDto.getCountry(), pageDto.getSize(), pageable);
+        Page<Member> members = memberService.getMemberList(pageDto.getCountry(), pageDto.getSize(),pageDto.getUserid(), pageable);
 
         model.addAttribute("members", new PageMaker<>(members));
     }

@@ -5,7 +5,6 @@ import lombok.ToString;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-@Getter
 @ToString
 public class PageDto {
     private static final int DEFAULT_MIN_SIZE = 1;
@@ -16,6 +15,15 @@ public class PageDto {
     private int size;
 
     private String country;
+    private String userid;
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 
     public String getCountry() {
         return country;

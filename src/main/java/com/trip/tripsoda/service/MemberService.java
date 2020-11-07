@@ -15,9 +15,9 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public Page<Member> getMemberList(String country, int size, Pageable pageable) {
+    public Page<Member> getMemberList(String country, int size, String userid, Pageable pageable) {
 
-        return memberRepository.findAll(country, size, pageable);
+        return memberRepository.findAll(country, size, userid, pageable);
     }
 
     @Transactional

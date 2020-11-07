@@ -6,5 +6,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface MemberCustomRepository {
-    Page<Member> findAll(String country, int count, Pageable pageable);
+    Page<Member> findAll(String country, int count, String userid, Pageable pageable);
 }

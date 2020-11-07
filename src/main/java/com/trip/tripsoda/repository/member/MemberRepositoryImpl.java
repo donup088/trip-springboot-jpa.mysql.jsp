@@ -23,7 +23,7 @@ public class MemberRepositoryImpl implements MemberCustomRepository {
     }
 
     @Override
-    public Page<Member> findAll(String country, int count, Pageable pageable) {
+    public Page<Member> findAll(String country, int count, String userid, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(member.id.gt(0));
 
@@ -31,6 +31,9 @@ public class MemberRepositoryImpl implements MemberCustomRepository {
             builder.and(member.country.eq(country));
         }
 
+        if(userid!=null&&!userid.equals("")){
+            builder.and(member.userid.eq(userid));
+        }
 
         QueryResults<Member> result = queryFactory.selectFrom(member)
                 .orderBy(member.id.desc())

@@ -58,7 +58,7 @@ class MemberRepositoryTest {
     public void 페이징테스트() {
         PageRequest pageRequest = PageRequest.of(0, 5, Sort.Direction.DESC, "id");
 
-        Page<Member> result = memberRepository.findAll(null, 5, pageRequest);
+        Page<Member> result = memberRepository.findAll(null, 5,null, pageRequest);
 
         for (Member member : result) {
             System.out.println("member = " + member);
@@ -71,7 +71,7 @@ class MemberRepositoryTest {
     public void 페이징테스트나라별() {
         PageRequest pageRequest = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
 
-        Page<Member> result = memberRepository.findAll("KOREA", 10, pageRequest);
+        Page<Member> result = memberRepository.findAll("KOREA", 10,null, pageRequest);
 
         for (Member member : result) {
             System.out.println("member = " + member);

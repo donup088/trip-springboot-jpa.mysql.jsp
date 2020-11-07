@@ -27,7 +27,7 @@ import java.util.UUID;
 public class ProfileUploadController {
     @PostMapping("/uploadProfile")
     @ResponseBody
-    public ResponseEntity<ProfileDto> uploadAjaxPost(MultipartFile[] uploadFile) {
+    public ResponseEntity<ProfileDto> uploadProfile(MultipartFile[] uploadFile) {
         String uploadFolder = "C:\\upload";
         String uploadFolderPath = getFolder();
         File uploadPath = new File(uploadFolder, uploadFolderPath);
@@ -57,7 +57,6 @@ public class ProfileUploadController {
         } catch (Exception e) {
             log.error(e.getMessage());
         }
-
         return new ResponseEntity<>(profileDto, HttpStatus.OK);
     }
 
