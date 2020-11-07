@@ -133,7 +133,6 @@
 </script>
 
 <style>
-
     .container-fluid {
         background-color: #e7e7e7;
     }
@@ -141,15 +140,6 @@
     .page a {
         color: black;
         text-decoration: none;
-    }
-
-    #register {
-        margin-right: 30px;
-    }
-
-    #register, #close {
-        width: 200px;
-        color: black;
     }
 
     input[type="text"], input[type="password"] {
@@ -171,9 +161,6 @@
         height: 100%;
     }
 
-    label {
-        font-size: 12px;
-    }
 </style>
 <%@include file="../include/footer.jsp" %>
 

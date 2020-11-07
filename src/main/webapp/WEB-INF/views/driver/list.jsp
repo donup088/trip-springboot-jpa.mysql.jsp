@@ -138,7 +138,7 @@
             var country = $('#country').find(":selected").val();
             var size = $('#count').find(":selected").val();
 
-            optForm.find("input[name='pageNum']").val("1");
+            optForm.find("input[name='page']").val("1");
             optForm.find("input[name='country']").val(country);
 
             optForm.find("input[name='size']").val(size);

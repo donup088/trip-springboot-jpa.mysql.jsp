@@ -40,11 +40,9 @@
                 <input type="hidden" name="size" value="${members.currentPage.pageSize}">
                 <input type="hidden" name="country" value="${pageDto.country}">
                 <input type="hidden" name="userid" value="${pageDto.userid}">
-            </form>
 
-            <form class="pull-right">
-                <div class="form-group">
-                    <input id="search" onkeypress="if (event.keyCode==13){goSearch(event);}" type="text"
+                <div class="form-group pull-right" style="display: inline">
+                    <input id="search" onkeypress="if (event.keyCode==13){goSearch();}" type="text"
                            class="form-control" placeholder="검색할 아이디">
                 </div>
             </form>
@@ -126,11 +124,10 @@
     var optForm = $("#optForm");
 
     function goSearch(e) {
-        e.preventDefault();
         var userid = $("#search").val();
         var country = $('#country').find(":selected").val();
         var size = $('#count').find(":selected").val();
-        optForm.find("input[name='pageNum']").val("1");
+        optForm.find("input[name='page']").val("1");
         optForm.find("input[name='country']").val(country);
         optForm.find("input[name='size']").val(size);
         optForm.find("input[name='userid']").val(userid);
@@ -152,7 +149,7 @@
             e.preventDefault();
             var country = $('#country').find(":selected").val();
             var size = $('#count').find(":selected").val();
-            optForm.find("input[name='pageNum']").val("1");
+            optForm.find("input[name='page']").val("1");
             optForm.find("input[name='country']").val(country);
             optForm.find("input[name='size']").val(size);
 
