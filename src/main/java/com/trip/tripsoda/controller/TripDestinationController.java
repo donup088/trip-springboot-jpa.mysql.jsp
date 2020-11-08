@@ -29,8 +29,9 @@ public class TripDestinationController {
         Pageable pageable = pageDto.makePageable();
 
         Page<TripDestination> tripDestinations = tripDestinationService.getTripDestinationList(
-                pageDto.getCountry(), pageDto.getAddress(), pageDto.getCity(), pageDto.getSize(), pageable);
+                pageDto.getCountry(), pageDto.getRegion(), pageDto.getCity(), pageDto.getSize(), pageable);
 
         model.addAttribute("trips", new PageMaker<>(tripDestinations));
     }
+
 }

@@ -22,12 +22,20 @@ public class TripRepositoryImpl implements TripCustomRepository {
     }
 
     @Override
-    public Page<TripDestination> findAll(String country, String address, String city, int count, Pageable pageable) {
+    public Page<TripDestination> findAll(String country, String region, String city, int count, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(tripDestination.id.gt(0));
 
         if (country != null && !country.equals("")) {
             builder.and(tripDestination.country.eq(country));
+        }
+
+        if (city != null && !city.equals("")) {
+            builder.and(tripDestination.city.eq(city));
+        }
+
+        if (region != null && !region.equals("")) {
+            builder.and(tripDestination.region.eq(region));
         }
 
         QueryResults<TripDestination> result = queryFactory.selectFrom(tripDestination)
