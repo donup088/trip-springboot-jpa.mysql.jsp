@@ -1,12 +1,11 @@
 package com.trip.tripsoda.dto;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-@ToString
-public class PageDto {
+@Data
+public class TripPageDto {
     private static final int DEFAULT_MIN_SIZE = 1;
     private static final int DEFAULT_SIZE = 10;
     private static final int DEFAULT_MAX_SIZE = 50;
@@ -15,15 +14,8 @@ public class PageDto {
     private int size;
 
     private String country;
-    private String userid;
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
+    private String city;
+    private String address;
 
     public String getCountry() {
         return country;
@@ -33,7 +25,7 @@ public class PageDto {
         this.country = country;
     }
 
-    public PageDto() {
+    public TripPageDto() {
         this.page = 1;
         this.size = DEFAULT_SIZE;
     }
@@ -58,5 +50,3 @@ public class PageDto {
         return PageRequest.of(this.page - 1, this.size);
     }
 }
-
-

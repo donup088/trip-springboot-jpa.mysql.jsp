@@ -2,7 +2,7 @@ package com.trip.tripsoda.controller;
 
 import com.trip.tripsoda.domain.Driver;
 import com.trip.tripsoda.dto.DriverRegisterDto;
-import com.trip.tripsoda.dto.PageDto;
+import com.trip.tripsoda.dto.MemberPageDto;
 import com.trip.tripsoda.dto.PageMaker;
 import com.trip.tripsoda.service.DriverService;
 import lombok.RequiredArgsConstructor;
@@ -24,16 +24,16 @@ public class DriverController {
     private final DriverService driverService;
 
     @GetMapping("/list")
-    public void list(@ModelAttribute("pageDto") PageDto pageDto, Model model) {
-        Pageable pageable = pageDto.makePageable();
+    public void list(@ModelAttribute("pageDto") MemberPageDto memberPageDto, Model model) {
+        Pageable pageable = memberPageDto.makePageable();
 
-        Page<Driver> drivers = driverService.getDriverList(pageDto.getCountry(), pageDto.getSize(), pageable);
+        Page<Driver> drivers = driverService.getDriverList(memberPageDto.getCountry(), memberPageDto.getSize(), pageable);
 
         model.addAttribute("drivers", new PageMaker<>(drivers));
     }
 
     @GetMapping("/register")
-    public void register(@ModelAttribute("pageDto")PageDto pageDto) {
+    public void register(@ModelAttribute("pageDto") MemberPageDto memberPageDto) {
         log.info("register...");
     }
 

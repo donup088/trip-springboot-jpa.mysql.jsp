@@ -2,7 +2,7 @@ package com.trip.tripsoda.controller;
 
 import com.trip.tripsoda.domain.Admin;
 import com.trip.tripsoda.dto.AdminRegisterDto;
-import com.trip.tripsoda.dto.PageDto;
+import com.trip.tripsoda.dto.MemberPageDto;
 import com.trip.tripsoda.dto.PageMaker;
 import com.trip.tripsoda.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -18,22 +18,24 @@ import javax.validation.Valid;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
+
 @RequestMapping("/admin")
 public class AdminController {
 
     private final AdminService adminService;
 
     @GetMapping("/list")
-    public void list(@ModelAttribute("pageDto") PageDto pageDto, Model model) {
-        Pageable pageable = pageDto.makePageable();
+    public void list(@ModelAttribute("pageDto") MemberPageDto memberPageDto, Model model) {
+        Pageable pageable = memberPageDto.makePageable();
 
-        Page<Admin> admins = adminService.getAdminList(pageDto.getCountry(), pageDto.getSize(), pageable);
+        Page<Admin> admins = adminService.getAdminList(memberPageDto.getCountry(), memberPageDto.getSize(), pageable);
 
         model.addAttribute("admins", new PageMaker<>(admins));
     }
 
+
     @GetMapping("/register")
-    public void register(@ModelAttribute("pageDto")PageDto pageDto) {
+    public void register(@ModelAttribute("pageDto") MemberPageDto memberPageDto) {
         log.info("register...");
     }
 

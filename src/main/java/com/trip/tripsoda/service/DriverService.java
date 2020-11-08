@@ -36,8 +36,11 @@ public class DriverService {
     @Transactional
     public void deleteDriver(Long id) {
         Optional<Driver> findDriver = driverRepository.findById(id);
-        String uuid = findDriver.get().getProfile().getUuid();
-        profileRepository.deleteById(uuid);
+        Profile profile = findDriver.get().getProfile();
+        if(profile!=null){
+            String uuid=profile.getUuid();
+            profileRepository.deleteById(uuid);
+        }
         driverRepository.deleteById(id);
     }
 }

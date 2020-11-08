@@ -31,7 +31,7 @@
                       style="margin-top: 50px">
 
                     <div class="row">
-                        <table border="1" width="500px" height="700px" style="margin-top: 50px">
+                        <table border="1" width="40%" height="100%" style="margin-top: 50px;margin-left: 40px">
                             <tr>
                                 <td>ID</td>
                                 <td><input type="text" name="userid"></td>

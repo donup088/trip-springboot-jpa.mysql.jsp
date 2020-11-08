@@ -2,7 +2,7 @@ package com.trip.tripsoda.controller;
 
 import com.trip.tripsoda.domain.Member;
 import com.trip.tripsoda.dto.MemberRegisterDto;
-import com.trip.tripsoda.dto.PageDto;
+import com.trip.tripsoda.dto.MemberPageDto;
 import com.trip.tripsoda.dto.PageMaker;
 import com.trip.tripsoda.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -25,18 +25,18 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/list")
-    public void list(@ModelAttribute("pageDto") PageDto pageDto, Model model) {
+    public void list(@ModelAttribute("pageDto") MemberPageDto memberPageDto, Model model) {
         log.info("list..");
-        log.info("pageDto: " + pageDto);
-        Pageable pageable = pageDto.makePageable();
+        log.info("pageDto: " + memberPageDto);
+        Pageable pageable = memberPageDto.makePageable();
 
-        Page<Member> members = memberService.getMemberList(pageDto.getCountry(), pageDto.getSize(),pageDto.getUserid(), pageable);
+        Page<Member> members = memberService.getMemberList(memberPageDto.getCountry(), memberPageDto.getSize(), memberPageDto.getUserid(), pageable);
 
         model.addAttribute("members", new PageMaker<>(members));
     }
 
     @GetMapping("/register")
-    public void register(@ModelAttribute("pageDto") PageDto pageDto) {
+    public void register(@ModelAttribute("pageDto") MemberPageDto memberPageDto) {
         log.info("register...");
 
     }

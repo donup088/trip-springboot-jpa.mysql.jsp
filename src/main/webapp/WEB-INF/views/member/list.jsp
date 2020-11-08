@@ -170,6 +170,7 @@
             if (deleteId != null) {
                 listForm.attr("action", "/member/delete");
                 listForm.attr("method", "post");
+                str += "<input type='hidden' name='id'  value='" + deleteId + "'>";
                 listForm.append(str);
                 listForm.submit();
             }
