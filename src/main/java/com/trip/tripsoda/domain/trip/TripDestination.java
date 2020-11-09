@@ -1,4 +1,4 @@
-package com.trip.tripsoda.domain;
+package com.trip.tripsoda.domain.trip;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +32,8 @@ public class TripDestination {
 
     private String operatingTime;
 
-    private String tag;
+    @Embedded
+    private FavoriteTag favoriteTag;
 
     private String favorite;// 외향 vs 내향 , 개방 vs 폐쇄성
 

@@ -1,6 +1,6 @@
 package com.trip.tripsoda.controller;
 
-import com.trip.tripsoda.domain.Driver;
+import com.trip.tripsoda.domain.dirver.Driver;
 import com.trip.tripsoda.dto.DriverRegisterDto;
 import com.trip.tripsoda.dto.MemberPageDto;
 import com.trip.tripsoda.dto.PageMaker;

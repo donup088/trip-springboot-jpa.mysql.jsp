@@ -1,7 +1,7 @@
 package com.trip.tripsoda.service;
 
-import com.trip.tripsoda.domain.Driver;
-import com.trip.tripsoda.domain.Profile;
+import com.trip.tripsoda.domain.dirver.Driver;
+import com.trip.tripsoda.domain.dirver.Profile;
 import com.trip.tripsoda.repository.driver.DriverRepository;
 import com.trip.tripsoda.repository.driver.ProfileRepository;
 import lombok.RequiredArgsConstructor;

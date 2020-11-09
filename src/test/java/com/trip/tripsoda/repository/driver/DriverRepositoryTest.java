@@ -1,6 +1,6 @@
 package com.trip.tripsoda.repository.driver;
 
-import com.trip.tripsoda.domain.Driver;
+import com.trip.tripsoda.domain.dirver.Driver;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -63,6 +63,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th>국가</th>
                     <th>주/도</th>
                     <th>시</th>
@@ -78,6 +79,7 @@
                 <tbody>
                 <c:forEach items="${trips.result.content}" var="trips">
                     <tr>
+                        <td><c:out value="${trips.id}"/></td>
                         <td><c:out value="${trips.country}"/></td>
                         <td><a href="#"><c:out value="${trips.region}"/></a></td>
                         <td><c:out value="${trips.city}"/></td>
@@ -178,9 +180,9 @@
         $("#delete").on("click", function (e) {
             var str = "";
             e.preventDefault();
-            var deleteId = prompt("삭제할 admin의 번호를 입력하세요.");
+            var deleteId = prompt("삭제할 관광지 번호를 입력하세요.");
             if (deleteId != null) {
-                listForm.attr("action", "/admin/delete");
+                listForm.attr("action", "/trip/delete");
                 listForm.attr("method", "post");
                 str += "<input type='hidden' name='id'  value='" + deleteId + "'>";
 

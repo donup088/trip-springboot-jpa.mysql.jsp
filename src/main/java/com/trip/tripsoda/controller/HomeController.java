@@ -15,14 +15,4 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "test";
-    }
-
-    @PostMapping("/test")
-    public String test(MemberRegisterDto memberRegisterDto){
-        log.info("memberDto: "+memberRegisterDto);
-        return "test";
-    }
 }

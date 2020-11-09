@@ -1,4 +1,4 @@
-package com.trip.tripsoda.domain;
+package com.trip.tripsoda.domain.dirver;
 
 import lombok.*;
 

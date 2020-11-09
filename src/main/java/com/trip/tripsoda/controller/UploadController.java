@@ -1,6 +1,6 @@
 package com.trip.tripsoda.controller;
 
-import com.trip.tripsoda.dto.ProfileDto;
+import com.trip.tripsoda.dto.FileDto;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.http.HttpHeaders;
@@ -19,45 +19,50 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
 @Slf4j
-public class ProfileUploadController {
-    @PostMapping("/uploadProfile")
+public class UploadController {
+    @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<ProfileDto> uploadProfile(MultipartFile[] uploadFile) {
+    public ResponseEntity<List<FileDto>> uploadProfile(MultipartFile[] uploadFile) {
         String uploadFolder = "C:\\upload";
         String uploadFolderPath = getFolder();
         File uploadPath = new File(uploadFolder, uploadFolderPath);
+        List<FileDto> list=new ArrayList<>();
         if (!uploadPath.exists()) {
             uploadPath.mkdirs();
         }
-        MultipartFile file = uploadFile[0];
+        for (MultipartFile multipartFile : uploadFile) {
+            FileDto fileDto = new FileDto();
+            String uploadFileName = multipartFile.getOriginalFilename();
+            fileDto.setFileName(uploadFileName);
 
-        ProfileDto profileDto = new ProfileDto();
-        String uploadFileName = file.getOriginalFilename();
-        profileDto.setFileName(uploadFileName);
+            UUID uuid = UUID.randomUUID();
+            uploadFileName = uuid.toString() + "_" + uploadFileName;
 
-        UUID uuid = UUID.randomUUID();
-        uploadFileName = uuid.toString() + "_" + uploadFileName;
-
-        try {
-            File saveFile = new File(uploadPath, uploadFileName);
-            file.transferTo(saveFile);
-            profileDto.setUuid(uuid.toString());
-            profileDto.setUploadPath(uploadFolderPath);
-            if (checkImageType(saveFile)) {
-                profileDto.setImage(true);
-                FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-                Thumbnailator.createThumbnail(new FileInputStream(new File(uploadPath, uploadFileName)), thumbnail, 300, 300);
-                thumbnail.close();
+            try {
+                File saveFile = new File(uploadPath, uploadFileName);
+                multipartFile.transferTo(saveFile);
+                fileDto.setUuid(uuid.toString());
+                fileDto.setUploadPath(uploadFolderPath);
+                if (checkImageType(saveFile)) {
+                    fileDto.setImage(true);
+                    FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+                    Thumbnailator.createThumbnail(new FileInputStream(new File(uploadPath, uploadFileName)), thumbnail, 300, 300);
+                    thumbnail.close();
+                }
+                list.add(fileDto);
+            } catch (Exception e) {
+                log.error(e.getMessage());
             }
-        } catch (Exception e) {
-            log.error(e.getMessage());
         }
-        return new ResponseEntity<>(profileDto, HttpStatus.OK);
+        log.info("list"+list);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/display")

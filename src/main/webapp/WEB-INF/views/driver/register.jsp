@@ -176,12 +176,12 @@
         var profileResult = $(".profileResult")
 
         function showProfile(result) {
-            console.log("result:" + result)
+            console.log(result.fileName)
             profileResult.html("");
             var str = "";
-            var filepath = encodeURIComponent(result.uploadPath + "/s_" + result.uuid + "_" + result.fileName);
+            var filepath = encodeURIComponent(result[0].uploadPath + "/s_" + result[0].uuid + "_" + result[0].fileName);
             str += "<div data-path='" + result.uploadPath + "'";
-            str += " data-uuid='" + result.uuid + "' data-filename='" + result.fileName + "' data-type='" + result.image + "'>";
+            str += " data-uuid='" + result[0].uuid + "' data-filename='" + result[0].fileName + "' data-type='" + result[0].image + "'>";
             str += "<img src='/display?fileName=" + filepath + "'>";
             str += "</div>";
             profileResult.append(str);
@@ -195,7 +195,7 @@
             formData.append("uploadFile", file[0]);
 
             $.ajax({
-                url: '/uploadProfile',
+                url: '/upload',
                 processData: false,
                 contentType: false,
                 data: formData,

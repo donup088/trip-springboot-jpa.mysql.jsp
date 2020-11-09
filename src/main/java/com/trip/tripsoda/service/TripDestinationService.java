@@ -1,6 +1,6 @@
 package com.trip.tripsoda.service;
 
-import com.trip.tripsoda.domain.TripDestination;
+import com.trip.tripsoda.domain.trip.TripDestination;
 import com.trip.tripsoda.repository.trip.TripRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,5 +16,9 @@ public class TripDestinationService {
     public Page<TripDestination> getTripDestinationList(String country, String address, String city, int size, Pageable pageable) {
 
         return tripRepository.findAll(country, address, city, size, pageable);
+    }
+
+    public void deleteTripDestination(Long id) {
+        tripRepository.deleteById(id);
     }
 }

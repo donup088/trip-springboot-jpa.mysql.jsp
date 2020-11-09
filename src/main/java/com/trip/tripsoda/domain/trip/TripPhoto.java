@@ -1,11 +1,13 @@
-package com.trip.tripsoda.domain;
+package com.trip.tripsoda.domain.trip;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@ToString(exclude = {"tripDestination"})
 public class TripPhoto {
     @Id
     @Column(name = "trip_photo_uuid", nullable = false)

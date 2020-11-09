@@ -1,6 +1,6 @@
 package com.trip.tripsoda.dto;
 
-import com.trip.tripsoda.domain.Profile;
+import com.trip.tripsoda.domain.dirver.Profile;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;

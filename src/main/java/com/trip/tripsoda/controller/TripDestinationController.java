@@ -1,8 +1,9 @@
 package com.trip.tripsoda.controller;
 
-import com.trip.tripsoda.domain.TripDestination;
-import com.trip.tripsoda.dto.MemberPageDto;
+import com.trip.tripsoda.domain.trip.TripDestination;
+import com.trip.tripsoda.dto.FileDto;
 import com.trip.tripsoda.dto.PageMaker;
+import com.trip.tripsoda.dto.TripDestinationRegisterDto;
 import com.trip.tripsoda.dto.TripPageDto;
 import com.trip.tripsoda.service.TripDestinationService;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -34,4 +35,26 @@ public class TripDestinationController {
         model.addAttribute("trips", new PageMaker<>(tripDestinations));
     }
 
+    @GetMapping("/register")
+    public void register(@ModelAttribute("pageDto") TripPageDto pageDto,
+                         @ModelAttribute("trip") TripDestinationRegisterDto tripDestinationRegisterDto){
+        log.info("register...");
+        if (tripDestinationRegisterDto.getFileDtos() != null) {
+            for (FileDto fileDto : tripDestinationRegisterDto.getFileDtos()) {
+                System.out.println(fileDto);
+            }
+        }
+    }
+
+    @GetMapping("/upload")
+    public void upload(@ModelAttribute("pageDto") TripPageDto pageDto) {
+        log.info("upload get");
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam("id") Long id) {
+        tripDestinationService.deleteTripDestination(id);
+
+        return "redirect:/trip/list";
+    }
 }
