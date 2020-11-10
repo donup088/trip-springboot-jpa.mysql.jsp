@@ -1,25 +1,38 @@
 package com.trip.tripsoda.domain.trip;
 
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
-@Embeddable
+@Entity
 @Getter
 @Setter
+@Table(name = "trip_favorite_tag")
+@ToString(exclude = {"tripDestination"})
 public class FavoriteTag {
-    private boolean sportsTag;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tag_id")
+    private Long id;
 
-    private boolean photoTag;
+    private boolean sports;
 
-    private boolean shoppingTag;
+    private boolean photo;
 
-    private boolean eatTag;
+    private boolean shopping;
 
-    private boolean excitingTag;
+    private boolean eat;
 
-    private boolean studyTag;
+    private boolean exciting;
 
-    private boolean natureTag;
+    private boolean study;
+
+    private boolean nature;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "trip_destination_id")
+    private TripDestination tripDestination;
 }

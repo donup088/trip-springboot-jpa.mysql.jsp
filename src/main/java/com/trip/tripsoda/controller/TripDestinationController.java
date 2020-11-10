@@ -1,6 +1,7 @@
 package com.trip.tripsoda.controller;
 
 import com.trip.tripsoda.domain.trip.TripDestination;
+import com.trip.tripsoda.domain.trip.TripPhoto;
 import com.trip.tripsoda.dto.FileDto;
 import com.trip.tripsoda.dto.PageMaker;
 import com.trip.tripsoda.dto.TripDestinationRegisterDto;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,7 +30,7 @@ public class TripDestinationController {
     public void list(@ModelAttribute("pageDto") TripPageDto pageDto, Model model) {
         log.info("trip list~~~~");
         Pageable pageable = pageDto.makePageable();
-
+        //TODO: list 넘길 때 dto로 변환해서 tag 안날리면 쿼리 줄어들게 할 수 있음
         Page<TripDestination> tripDestinations = tripDestinationService.getTripDestinationList(
                 pageDto.getCountry(), pageDto.getRegion(), pageDto.getCity(), pageDto.getSize(), pageable);
 
@@ -37,7 +39,7 @@ public class TripDestinationController {
 
     @GetMapping("/register")
     public void register(@ModelAttribute("pageDto") TripPageDto pageDto,
-                         @ModelAttribute("trip") TripDestinationRegisterDto tripDestinationRegisterDto){
+                         @ModelAttribute("trip") TripDestinationRegisterDto tripDestinationRegisterDto) {
         log.info("register...");
         if (tripDestinationRegisterDto.getFileDtos() != null) {
             for (FileDto fileDto : tripDestinationRegisterDto.getFileDtos()) {
@@ -57,4 +59,47 @@ public class TripDestinationController {
 
         return "redirect:/trip/list";
     }
+
+
+    @PostMapping("/register")
+    public String registerPost(TripDestinationRegisterDto tripDestinationRegisterDto) {
+        log.info("driverDto" + tripDestinationRegisterDto);
+        TripDestination tripDestination = dtoToTripDestination(tripDestinationRegisterDto);
+
+        tripDestinationService.register(tripDestination);
+        //TODO: 프론트에서 데이터 넘기도록 해야함
+        return "redirect:/trip/list";
+    }
+
+    private TripDestination dtoToTripDestination(TripDestinationRegisterDto tripDestinationRegisterDto) {
+
+        return TripDestination.builder()
+                .country(tripDestinationRegisterDto.getCountry())
+                .city(tripDestinationRegisterDto.getCity())
+                .code(tripDestinationRegisterDto.getCode())
+                .english(tripDestinationRegisterDto.isEnglish())
+                .fee(tripDestinationRegisterDto.getFee())
+                .korea(tripDestinationRegisterDto.isKorea())
+                .tag(tripDestinationRegisterDto.getTags())
+                .name(tripDestinationRegisterDto.getName())
+                .region(tripDestinationRegisterDto.getRegion())
+                .tripPhoto(fileToPhoto(tripDestinationRegisterDto.getFileDtos()))
+                .operatingTime(tripDestinationRegisterDto.getOperatingTime())
+                .phone(tripDestinationRegisterDto.getPhone())
+                .build();
+    }
+
+    private List<TripPhoto> fileToPhoto(List<FileDto> fileDtos) {
+        List<TripPhoto> tripPhotos=new ArrayList<>();
+        for (FileDto fileDto : fileDtos) {
+            TripPhoto tripPhoto=new TripPhoto();
+            tripPhoto.setUuid(fileDto.getUuid());
+            tripPhoto.setFileName(fileDto.getFileName());
+            tripPhoto.setFileType(fileDto.isImage());
+            tripPhoto.setUploadPath(fileDto.getUploadPath());
+            tripPhotos.add(tripPhoto);
+        }
+        return tripPhotos;
+    }
+
 }

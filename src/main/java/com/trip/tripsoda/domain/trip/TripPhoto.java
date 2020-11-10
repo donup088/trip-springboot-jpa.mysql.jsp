@@ -1,12 +1,14 @@
 package com.trip.tripsoda.domain.trip;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @ToString(exclude = {"tripDestination"})
 public class TripPhoto {
     @Id

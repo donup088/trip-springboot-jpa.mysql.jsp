@@ -4,7 +4,7 @@
 <div class="col-sm-9 page">
     <div class="row">
         <div class="container-fluid">
-            <p>홈 > 회원정보 > 관광지 > 추가</p>
+            <p>홈 > 회원정보 > 관광지코드 > 추가</p>
         </div>
         <div class="col-lg-12">
             <h3 class="page-header" style="color: gray">관광지 관리</h3>
@@ -16,7 +16,7 @@
         </ul>
         <div class="row">
             <div class="col-sm-6">
-                <form id="registerForm" class="form-horizontal" action="/driver/register" method="post"
+                <form id="registerForm" class="form-horizontal" action="/trip/register" method="post"
                       style="margin-top: 50px">
                     <div class="form-group">
                         <label class="col-sm-4 control-label">국가</label>
@@ -79,22 +79,21 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label">tag</label>
                         <div class="col-sm-6">
-                            <input type="radio" name="photo" value="photo"/> 사진광
-                            <input type="radio" name="sports" value="sports"/> 스포츠 마니아
-                            <input type="radio" name="shopping" value="shopping"/> 쇼핑왕
-                            <input type="radio" name="eat" value="eat"/>미식가
-                            <input type="radio" name="exciting" value="exciting"/>흥폭발
-                            <input type="radio" name="study" value="study"/> 학구파
-                            <input type="radio" name="nature" value="nature"/> 자연인
-
+                            <input type=checkbox name="tags.photo" value="true"/> 사진광
+                            <input type="checkbox" name="tags.sports" value="true"/> 스포츠 마니아
+                            <input type="checkbox" name="tags.shopping" value="true"/> 쇼핑왕
+                            <input type="checkbox" name="tags.eat" value="true"/>미식가
+                            <input type="checkbox" name="tags.exciting" value="true"/>흥폭발
+                            <input type="checkbox" name="tags.study" value="true"/> 학구파
+                            <input type="checkbox" name="tags.nature" value="true"/> 자연인
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-4 control-label">언어</label>
                         <div class="col-sm-6">
-                            <input type="radio" name="korea" value="korea"/> 한국어
-                            <input type="radio" name="english" value="english"/> 영어
+                            <input type="checkbox" name="korea" value="true"/> 한국어
+                            <input type="checkbox" name="english" value="true"/> 영어
                         </div>
                     </div>
                     <input type='hidden' name='fileDtos.fileName' value="">
@@ -120,7 +119,12 @@
                      height:360px; display: inline-block; margin-top: 50px">
                         <div class="mainResult">
                             <c:if test="${trip.fileDtos[0]!=null}">
-                                <img style="width: 360px;height: 360px" src='/display?fileName=${trip.fileDtos[0].fileName}'>
+                                <img style="width: 360px;height: 360px"
+                                     src='/display?fileName=${trip.fileDtos[0].fileName}'
+                                     data-filename="${trip.fileDtos[0].fileName}"
+                                     data-uuid="${trip.fileDtos[0].uuid}"
+                                     data-uploadPath="${trip.fileDtos[0].uploadPath}"
+                                     data-type="${trip.fileDtos[0].image}">
                             </c:if>
                         </div>
                         <div class="filebox">
@@ -132,13 +136,26 @@
                               height:120px;  display: inline-block">
                             <div class="subResult">
                                 <c:if test="${trip.fileDtos[1]!=null}">
-                                    <li><img src='/display?fileName=${trip.fileDtos[1].fileName}'></li>
+                                    <li><img src='/display?fileName=${trip.fileDtos[1].fileName}'
+                                             data-filename="${trip.fileDtos[1].fileName}"
+                                             data-uuid="${trip.fileDtos[1].uuid}"
+                                             data-uploadPath="${trip.fileDtos[1].uploadPath}"
+                                             data-type="${trip.fileDtos[1].image}"></li>
                                 </c:if>
                                 <c:if test="${trip.fileDtos[2]!=null}">
-                                    <li><img src='/display?fileName=${trip.fileDtos[2].fileName}'></li>
+                                    <li>
+                                        <img src='/display?fileName=${trip.fileDtos[2].fileName}'
+                                             data-filename="${trip.fileDtos[2].fileName}"
+                                             data-uuid="${trip.fileDtos[2].uuid}"
+                                             data-uploadPath="${trip.fileDtos[2].uploadPath}"
+                                             data-type="${trip.fileDtos[2].image}"></li>
                                 </c:if>
                                 <c:if test="${trip.fileDtos[3]!=null}">
-                                    <li><img src='/display?fileName=${trip.fileDtos[3].fileName}'></li>
+                                    <li><img src='/display?fileName=${trip.fileDtos[3].fileName}'
+                                             data-filename="${trip.fileDtos[3].fileName}"
+                                             data-uuid="${trip.fileDtos[3].uuid}"
+                                             data-uploadPath="${trip.fileDtos[3].uploadPath}"
+                                             data-type="${trip.fileDtos[3].image}"></li>
                                 </c:if>
                             </div>
                         </div>
@@ -162,46 +179,22 @@
 
         $("#register").on("click", function (e) {
             var str = "";
-            var profileDiv = $(".profileResult div");
-            str += "<input type='hidden' name='profile.fileName' value='" + profileDiv.data("filename") + "'>";
-            str += "<input type='hidden' name='profile.uuid' value='" + profileDiv.data("uuid") + "'>";
-            str += "<input type='hidden' name='profile.uploadPath' value='" + profileDiv.data("path") + "'>";
-            str += "<input type='hidden' name='profile.fileType' value='" + profileDiv.data("type") + "'>";
-            registerForm.append(str).submit();
-        });
-
-        var profileResult = $(".profileResult");
-
-        function showProfile(result) {
-            console.log("result:" + result)
-            profileResult.html("");
-            var str = "";
-            var filepath = encodeURIComponent(result.uploadPath + "/s_" + result.uuid + "_" + result.fileName);
-            str += "<div data-path='" + result.uploadPath + "'";
-            str += " data-uuid='" + result.uuid + "' data-filename='" + result.fileName + "' data-type='" + result.image + "'>";
-            str += "<img src='/display?fileName=" + filepath + "'>";
-            str += "</div>";
-            profileResult.append(str);
-        }
-
-        $("input[type='file']").change(function (e) {
-            var formData = new FormData();
-            var inputFile = $("input[name='profile']");
-            var file = inputFile[0].files;
-            console.log(file);
-            formData.append("uploadFile", file[0]);
-
-            $.ajax({
-                url: '/uploadProfile',
-                processData: false,
-                contentType: false,
-                data: formData,
-                type: 'POST',
-                success: function (result) {
-                    showProfile(result);
-                    alert("success");
-                }
+            var mainDiv=$(".mainResult img");
+            str+="<input type='hidden' name='fileDtos[0].fileName' value='"+mainDiv.data("filename")+"'>";
+            str+="<input type='hidden' name='fileDtos[0].uuid' value='"+mainDiv.data("uuid")+"'>";
+            str+="<input type='hidden' name='fileDtos[0].uploadPath' value='"+mainDiv.data("path")+"'>";
+            str+="<input type='hidden' name='fileDtos[0].image' value='"+mainDiv.data("type")+"'>";
+            $(".subResult li img").each(function (i, obj) {
+                var jobj = $(obj);
+                console.log(jobj.data("filename"));
+                console.log(jobj.data("type"));
+                str += "<input type='hidden' name='fileDtos[" + (i+1) + "].fileName' value='" + jobj.data("filename") + "'>";
+                str += "<input type='hidden' name='fileDtos[" + (i+1) + "].uuid' value='" + jobj.data("uuid") + "'>";
+                str += "<input type='hidden' name='fileDtos[" + (i+1) + "].uploadPath' value='" + jobj.data("path") + "'>";
+                str += "<input type='hidden' name='fileDtos[" + (i+1) + "].image' value='" + jobj.data("type") + "'>";
             });
+
+            registerForm.append(str).submit();
         });
 
         $("#upload").on("click", function (e) {

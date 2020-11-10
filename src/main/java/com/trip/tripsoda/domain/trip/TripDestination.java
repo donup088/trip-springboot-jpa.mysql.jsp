@@ -1,7 +1,6 @@
 package com.trip.tripsoda.domain.trip;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +9,9 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TripDestination {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,15 +34,15 @@ public class TripDestination {
 
     private String operatingTime;
 
-    @Embedded
-    private FavoriteTag favoriteTag;
+    @OneToOne(mappedBy = "tripDestination")
+    private FavoriteTag tag;
 
     private String favorite;// 외향 vs 내향 , 개방 vs 폐쇄성
 
     private String guide;//entity로 바꿀가능성 있음
 
-    @OneToMany(mappedBy ="tripDestination")
-    private List<TripPhoto> tripPhoto=new ArrayList<>();
+    @OneToMany(mappedBy = "tripDestination")
+    private List<TripPhoto> tripPhoto = new ArrayList<>();
 
     private boolean korea;
 

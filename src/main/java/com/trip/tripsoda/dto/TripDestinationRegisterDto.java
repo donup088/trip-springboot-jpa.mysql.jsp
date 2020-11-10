@@ -28,13 +28,11 @@ public class TripDestinationRegisterDto {
 
     private String operatingTime;
 
-    private FavoriteTag favoriteTag;
-
-    private String favorite;
-
     private String guide;
 
     private List<FileDto> fileDtos;
+
+    private FavoriteTag tags;
 
     private boolean korea;
 

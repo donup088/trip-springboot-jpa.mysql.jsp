@@ -4,7 +4,7 @@
 <div class="col-sm-9 page">
     <div class="row">
         <div class="container-fluid">
-            <p>홈 > 회원정보 > 관광지 > 추가</p>
+            <p>홈 > 회원정보 > 관광지코드 > 추가</p>
         </div>
         <div class="col-lg-12">
             <h3 class="page-header" style="color: gray">관광지 관리</h3>
