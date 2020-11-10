@@ -12,7 +12,7 @@
         <br>
         <ul class="nav nav-tabs nav-justified">
             <li class="active"><a href="/trip/list">관광지 코드</a></li>
-            <li><a href="#">지역별 대표사진 등록</a></li>
+            <li><a href="#">지역 코드 관리</a></li>
         </ul>
         <div class="row">
             <div class="col-sm-6">

@@ -40,7 +40,7 @@
                 <a href="/trip/list">관광지 관리</a>
             </li>
             <li>
-                <a href="#">투어 관리</a>
+                <a href="/tour/list">투어 관리</a>
             </li>
             <li>
                 <a href="#">공지사항</a>

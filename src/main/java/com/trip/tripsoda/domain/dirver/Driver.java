@@ -1,8 +1,11 @@
 package com.trip.tripsoda.domain.dirver;
 
+import com.trip.tripsoda.domain.tour.Tour;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -51,4 +54,7 @@ public class Driver {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "driver", cascade = CascadeType.ALL)
     private Profile profile;
+
+    @OneToMany(mappedBy = "driver")
+    private List<Tour> tours=new ArrayList<>();
 }

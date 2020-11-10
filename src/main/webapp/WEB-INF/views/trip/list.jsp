@@ -13,7 +13,7 @@
         <br>
         <ul class="nav nav-tabs nav-justified">
             <li class="active"><a href="/trip/list">관광지 코드</a></li>
-            <li><a href="#">지역별 대표사진 등록</a></li>
+            <li><a href="#">지역 코드 관리</a></li>
         </ul>
         <br>
 
@@ -89,12 +89,16 @@
                         <td><a href="#">O</a></td>
                         <td><a href="#">O</a></td>
                         <td>
-                            <c:if test="${trips.korea}"><a href="#">O</a></c:if>
-                            <c:if test="!${trips.korea}"><a href="#">X</a></c:if>
+                            <c:choose>
+                                <c:when test="${trips.korea}"><a href="#">O</a></c:when>
+                                <c:otherwise><a href="#">X</a></c:otherwise>
+                            </c:choose>
                         </td>
                         <td>
-                            <c:if test="${trips.english}"><a href="#">O</a></c:if>
-                            <c:if test="!${trips.english}"><a href="#">X</a></c:if>
+                            <c:choose>
+                                <c:when test="${trips.english}"><a href="#">O</a></c:when>
+                                <c:otherwise><a href="#">X</a></c:otherwise>
+                            </c:choose>
                         </td>
                     </tr>
                 </c:forEach>
@@ -159,8 +163,8 @@
             e.preventDefault();
             var country = $('#country').find(":selected").val();
             var size = $('#count').find(":selected").val();
-            var city= $("#city").find(":selected").val();
-            var region=$("#region").find(":selected").val();
+            var city = $("#city").find(":selected").val();
+            var region = $("#region").find(":selected").val();
 
             optForm.find("input[name='page']").val("1");
             optForm.find("input[name='country']").val(country);
