@@ -80,12 +80,13 @@ class TourRepositoryTest {
 
         for (int i = 0; i < 10; i++) {
             Tour tour = new Tour();
-            tour.setTourDate(LocalDateTime.now());
+            tour.setTourDate(LocalDateTime.of(2020,11,11,9,10));
             tour.setCustomer(member);
             tour.setDriver(driver1);
             tour.setAddress(new TourAddress("K","서울","서울"));
             tour.setPersonCount(i+1);
             tour.setTakeTime(i+1);
+            tour.setTourType("all");
             tour.setPayment(50000);
             tour.setVisitCount(i+1);
             tour.setFinish(false);
@@ -94,13 +95,14 @@ class TourRepositoryTest {
 
         for (int i = 10; i < 20; i++) {
             Tour tour = new Tour();
-            tour.setTourDate(LocalDateTime.now().minusDays(1));
+            tour.setTourDate(LocalDateTime.of(2020,11,10,10,30));
             tour.setCustomer(member2);
             tour.setDriver(driver2);
             tour.setAddress(new TourAddress("J","도쿄","도쿄"));
             tour.setPersonCount(i-9);
             tour.setTakeTime(i-9);
             tour.setPayment(30000);
+            tour.setTourType("taxi");
             tour.setVisitCount(i-9);
             tour.setFinish(false);
             tourRepository.save(tour);
@@ -108,17 +110,17 @@ class TourRepositoryTest {
 
         for (int i = 20; i < 30; i++) {
             Tour tour = new Tour();
-            tour.setTourDate(LocalDateTime.now().minusDays(2));
+            tour.setTourDate(LocalDateTime.of(2020,11,12,12,30));
             tour.setCustomer(member3);
             tour.setDriver(driver3);
-            tour.setAddress(new TourAddress("K","서울","서울"));
+            tour.setAddress(new TourAddress("C","베이징","베이징"));
             tour.setPersonCount(i-19);
             tour.setTakeTime(i-19);
+            tour.setTourType("other");
             tour.setPayment(80000);
             tour.setVisitCount(i-19);
             tour.setFinish(true);
             tourRepository.save(tour);
         }
-
     }
 }

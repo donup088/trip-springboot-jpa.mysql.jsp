@@ -169,8 +169,8 @@
             optForm.find("input[name='page']").val("1");
             optForm.find("input[name='country']").val(country);
             optForm.find("input[name='city']").val(city);
-            optForm.find("input[name='size']").val(size);
             optForm.find("input[name='region']").val(region);
+            optForm.find("input[name='size']").val(size);
             optForm.submit();
         });
 

@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.Date;
+
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -23,20 +26,28 @@ public class TourController {
     //LocalDate.parse("2018-12-11");   변환가능
 
     @GetMapping("/tour/list")
-    public void list(@ModelAttribute("pageDto") TourPageDto tourPageDto, Model model) {
-        log.info("tourPageDto: "+tourPageDto);
+    public void list(@ModelAttribute("pageDto") TourPageDto tourPageDto,
+                     Model model) {
+        log.info("tourPageDto: " + tourPageDto);
+        log.info("time" + tourPageDto.getTourDate());
+        String tourDate = null;
+        if (tourPageDto.getTourDate() != null) {
+            String[] split = tourPageDto.getTourDate().split(",");
+            tourDate = split[0];
+        }
+
         Pageable pageable = tourPageDto.makePageable();
 
         Page<Tour> tours = tourService.getTourList(
-                tourPageDto.getTourDate(),
+                tourDate,
                 tourPageDto.getSize(),
                 tourPageDto.getCountry(),
                 tourPageDto.getRegion(),
                 tourPageDto.getCity(),
-                tourPageDto.getDriver(),
+                tourPageDto.getDriverName(),
+                tourPageDto.getTourType(),
                 pageable);
 
         model.addAttribute("tour", new PageMaker<>(tours));
     }
-
 }

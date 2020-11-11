@@ -22,16 +22,26 @@
 
         <div class="container">
             <div class="col-lg-12">
-                <input type="date" id="tourDate" name="tourDate" style="display: block; margin-bottom:10px">
+                <form id="optForm" action="/tour/list" method="get" style="display: inline">
+                    <div class="col-lg-12">
+                        <input type="date" id="tourDate" name="tourDate" style=" margin-bottom:10px">
+                        <select id="tourType" style="margin-left:20px; margin-top: 10px; margin-bottom: 10px">
+                            <option value="" <c:out value="${pageDto.tourType eq 'null' ? 'selected': ''}"/>>모든 투어
+                            </option>
+                            <option value="taxi" <c:out value="${pageDto.tourType eq 'taxi' ? 'selected': ''}"/>>택시 투어
+                            </option>
+                            <option value="other" <c:out value="${pageDto.tourType eq 'other' ? 'selected': ''}"/>>기타 투어
+                            </option>
+                        </select>
+                    </div>
 
-                <form id="optForm" action="/member/list" method="get" style="display: inline">
                     <select id="country">
                         <option value="" <c:out value="${pageDto.country == 'null' ? 'selected': ''}"/>>국적별 분류</option>
-                        <option value="KOREA" <c:out value="${pageDto.country eq 'KOREA' ? 'selected': ''}"/>>KOREA
+                        <option value="K" <c:out value="${pageDto.country eq 'K' ? 'selected': ''}"/>>KOREA
                         </option>
-                        <option value="JAPAN" <c:out value="${pageDto.country eq 'JAPAN' ? 'selected': ''}"/>>JAPAN
+                        <option value="J" <c:out value="${pageDto.country eq 'J' ? 'selected': ''}"/>>JAPAN
                         </option>
-                        <option value="CHINA" <c:out value="${pageDto.country eq 'CHINA' ? 'selected': ''}"/>>CHINA
+                        <option value="C" <c:out value="${pageDto.country eq 'C' ? 'selected': ''}"/>>CHINA
                         </option>
                     </select>
 
@@ -56,22 +66,25 @@
                         <option value="영월" <c:out value="${pageDto.city eq '영월' ? 'selected': ''}"/>>영월</option>
                     </select>
 
-                    <select size="1" id="driver">
+                    <select size="1" id="driverName">
                         <option value="">담당 기사별 분류</option>
-                        <option value="기사회원0">기사회원0</option>
-                        <option value="기사회원1">기사회원1</option>
+                        <option value="기사회원1" <c:out value="${pageDto.driverName eq '기사회원1' ? 'selected': ''}"/>>기사회원1
+                        </option>
+                        <option value="기사회원2" <c:out value="${pageDto.driverName eq '기사회원2' ? 'selected': ''}"/>>기사회원2
+                        </option>
+                        <option value="기사회원3" <c:out value="${pageDto.driverName eq '기사회원3' ? 'selected': ''}"/>>기사회원3
+                        </option>
                     </select>
 
                     <input type="hidden" name="page" value="${tour.currentPageNum}">
                     <input type="hidden" name="size" value="${tour.currentPage.pageSize}">
                     <input type="hidden" name="country" value="${pageDto.country}">
-
+                    <input type="hidden" name="city" value="${pageDto.city}">
+                    <input type="hidden" name="region" value="${pageDto.region}">
+                    <input type="hidden" name="driverName" value="${pageDto.driverName}">
+                    <input type="hidden" name="tourDate" value="${pageDto.tourDate}">
+                    <input type="hidden" name="tourType" value="${pageDto.tourType}">
                 </form>
-            </div>
-            <div class="col-lg-12" style="font-size: 20px; margin-top: 10px;margin-bottom: 10px">
-                <input type="radio" name="tourType" value="all"> 모든 투어
-                <input type="radio" name="tourType" value="taxi"> 택시 투어
-                <input type="radio" name="tourType" value="other"> 기타 투어
             </div>
             <table class="table table-hover">
                 <thead>
@@ -93,8 +106,9 @@
                         <td><c:out value="${tour.tourDate}"/></td>
                         <td><a href="#"><c:out value="${tour.customer.name}"/></a></td>
                         <td><c:out value="${tour.driver.name}"/></td>
-                        <td><c:out value="${tour.address.country}"/>/<c:out value="${tour.address.region}"/>/<c:out
-                                value="${tour.address.city}"/></td>
+                        <td><c:out value="${tour.address.country}"/>/
+                            <c:out value="${tour.address.region}"/>/
+                            <c:out value="${tour.address.city}"/></td>
                         <td><c:out value="${tour.personCount}"/></td>
                         <td><c:out value="${tour.payment}"/></td>
                         <td><c:out value="${tour.takeTime}"/>시간</td>
@@ -154,24 +168,7 @@
 <script>
     var optForm = $("#optForm");
 
-    function goSearch(e) {
-        var userid = $("#search").val();
-        var country = $('#country').find(":selected").val();
-        var size = $('#count').find(":selected").val();
-        optForm.find("input[name='page']").val("1");
-        optForm.find("input[name='country']").val(country);
-        optForm.find("input[name='size']").val(size);
-        optForm.find("input[name='userid']").val(userid);
-
-        optForm.submit();
-    };
-
     $(document).ready(function () {
-        var tourDate = $("#tourDate");
-        $(tourDate).change(function () {
-            console.log(tourDate.val());
-        });
-
         var listForm = $("#list");
         optForm.find("input[name='userid']").val("");
 
@@ -181,13 +178,24 @@
             listForm.submit();
         });
 
-        $("#optForm #country, #optForm #count").change(function (e) {
+        $("#optForm #country, #optForm #count, #optForm #city, #optForm #region , #optForm #driverName, #optForm #tourDate, #optForm #tourType").change(function (e) {
             e.preventDefault();
             var country = $('#country').find(":selected").val();
             var size = $('#count').find(":selected").val();
+            var city = $("#city").find(":selected").val();
+            var region = $("#region").find(":selected").val();
+            var driverName = $('#driverName').find(":selected").val();
+            var tourDate = $("#tourDate").val();
+            var tourType = $("#tourType").find(":selected").val();
+
             optForm.find("input[name='page']").val("1");
             optForm.find("input[name='country']").val(country);
             optForm.find("input[name='size']").val(size);
+            optForm.find("input[name='city']").val(city);
+            optForm.find("input[name='region']").val(region);
+            optForm.find("input[name='driverName']").val(driverName);
+            optForm.find("input[name='tourDate']").val(tourDate);
+            optForm.find("input[name='tourType']").val(tourType);
 
             optForm.submit();
         });

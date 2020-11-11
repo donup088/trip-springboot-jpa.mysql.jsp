@@ -1,11 +1,11 @@
 package com.trip.tripsoda.dto;
 
-import com.trip.tripsoda.domain.dirver.Driver;
 import lombok.Data;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 public class TourPageDto {
@@ -17,11 +17,16 @@ public class TourPageDto {
     private int size;
 
     private String country;
+
     private String region;
+
     private String city;
-    private LocalDateTime tourDate;
+
+    private String tourDate;
+
     private String tourType;
-    private Driver driver;
+
+    private String driverName;
 
     public TourPageDto() {
         this.page = 1;

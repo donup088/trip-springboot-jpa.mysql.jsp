@@ -5,7 +5,9 @@ import com.trip.tripsoda.domain.dirver.Driver;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -19,7 +21,7 @@ public class Tour {
     @Column(name = "tour_id")
     private Long id;
 
-    private LocalDateTime tourDate;
+    private LocalDate tourDate;
 
     private int personCount; //인원
 
@@ -31,7 +33,10 @@ public class Tour {
 
     private boolean finish;
 
-    private String TourType; //all, taxi, other enum으로 줄 수 있는데 jsp 에서 enum 데이터 바인딩 하는 방법을 알아야함
+    private String tourType; //all, taxi, other enum으로 줄 수 있는데 jsp 에서 enum 데이터 바인딩 하는 방법을 알아야함
+
+    @Embedded
+    private TourAddress address;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -41,6 +46,4 @@ public class Tour {
     @JoinColumn(name = "driver_id")
     private Driver driver;
 
-    @Embedded
-    private TourAddress address;
 }

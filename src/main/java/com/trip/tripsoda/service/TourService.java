@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -16,8 +17,8 @@ public class TourService {
 
     private final TourRepository tourRepository;
 
-    public Page<Tour> getTourList(LocalDateTime tourDate, int size, String country, String region, String city, Driver driver, Pageable pageable) {
+    public Page<Tour> getTourList(String tourDate, int size, String country, String region, String city, String driverName, String tourType, Pageable pageable) {
 
-        return tourRepository.findAll(country, region, city, driver, tourDate, size, pageable);
+        return tourRepository.findAll(country, region, city, driverName, tourDate, size, tourType, pageable);
     }
 }
