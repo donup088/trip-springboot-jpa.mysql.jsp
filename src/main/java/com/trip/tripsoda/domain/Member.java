@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"orders","questions"})
+@ToString(exclude = {"questions"})
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,8 +43,7 @@ public class Member {
 
     private String etc;
 
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders=new ArrayList<>();
+    private int tourCount;
 
     @OneToMany(mappedBy = "member")
     private List<Question> questions=new ArrayList<>();

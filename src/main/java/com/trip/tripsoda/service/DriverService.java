@@ -43,4 +43,13 @@ public class DriverService {
         }
         driverRepository.deleteById(id);
     }
+
+    @Transactional
+    public Driver findDriverToBuyTour(String driverName) {
+        Driver driver= driverRepository.findByName(driverName);
+        int driverCount = driver.getDriverCount();
+        driver.setDriverCount(driverCount+1);
+
+        return driver;
+    }
 }

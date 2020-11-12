@@ -29,4 +29,13 @@ public class MemberService {
     public void deleteMember(Long id) {
         memberRepository.deleteById(id);
     }
+
+    @Transactional
+    public Member findMemberToBuyTour(String name) {
+        Member findMember = memberRepository.findByName(name);
+        int tourCount = findMember.getTourCount();
+        findMember.setTourCount(tourCount+1);
+
+        return findMember;
+    }
 }

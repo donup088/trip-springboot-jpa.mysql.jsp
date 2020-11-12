@@ -1,4 +1,4 @@
-package com.trip.tripsoda.dto;
+package com.trip.tripsoda.dto.tour;
 
 import lombok.Data;
 import org.springframework.data.domain.PageRequest;

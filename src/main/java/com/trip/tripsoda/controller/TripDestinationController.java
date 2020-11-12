@@ -30,7 +30,7 @@ public class TripDestinationController {
     public void list(@ModelAttribute("pageDto") TripPageDto pageDto, Model model) {
         log.info("trip list~~~~");
         Pageable pageable = pageDto.makePageable();
-        //TODO: list 넘길 때 dto로 변환해서 tag 안날리면 쿼리 줄어들게 할 수 있음
+        //list 넘길 때 dto로 변환해서 tag 안날리면 쿼리 줄어들게 할 수 있음
         Page<TripDestination> tripDestinations = tripDestinationService.getTripDestinationList(
                 pageDto.getCountry(), pageDto.getRegion(), pageDto.getCity(), pageDto.getSize(), pageable);
 
@@ -67,7 +67,6 @@ public class TripDestinationController {
         TripDestination tripDestination = dtoToTripDestination(tripDestinationRegisterDto);
 
         tripDestinationService.register(tripDestination);
-        //TODO: 프론트에서 데이터 넘기도록 해야함
         return "redirect:/trip/list";
     }
 
@@ -101,5 +100,4 @@ public class TripDestinationController {
         }
         return tripPhotos;
     }
-
 }

@@ -47,12 +47,12 @@
                     <button id="save" class="btn btn-default btn-lg pull-right">저장</button>
                 </div>
                 <label id="mainUpload" for="mainPhoto" class="btn btn-default btn-lg" style="margin-top: 50px">
-                    메인 사진 추가
+                    관광지 메인 사진 추가
                 </label>
                 <input type="file" id="mainPhoto" name="mainPhoto">
 
                 <label id="subUpload" for="subPhoto" class="btn btn-default btn-lg" style="margin-top: 50px">
-                    서브 사진 추가
+                    관광지 세부 사진 추가
                 </label>
                 <input type="file" id="subPhoto" name="subPhoto" multiple>
             </div>

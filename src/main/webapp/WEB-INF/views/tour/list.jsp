@@ -153,9 +153,10 @@
 
             <form id="list" action="/tour/list" method="get">
                 <div id="button" style="margin-top: 20px" class="pull-right">
-                    <button class="btn btn-default btn-lg" id="delete">등록</button>
-                    <button class="btn btn-default btn-lg" id="add">삭제</button>
+                    <button class="btn btn-default btn-lg" id="add">등록</button>
+                    <button class="btn btn-default btn-lg" id="delete">삭제</button>
                 </div>
+
                 <input type="hidden" name="page" value="${tour.currentPageNum}">
                 <input type="hidden" name="size" value="${tour.currentPage.pageSize}">
                 <input type="hidden" name="country" value="${pageDto.country}">
@@ -184,6 +185,7 @@
             listForm.find('[name="page"]').val($(this).attr('href'));
             listForm.submit();
         });
+
         $("#optForm #tourDate").change(function () {
             var tourDate = $("#tourDate").val();
             optForm.find("input[name='tourDate']").val(tourDate);
@@ -197,7 +199,6 @@
             var city = $("#city").find(":selected").val();
             var region = $("#region").find(":selected").val();
             var driverName = $('#driverName').find(":selected").val();
-            // var tourDate = $("#tourDate").val();
             var tourType = $("#tourType").find(":selected").val();
 
             optForm.find("input[name='page']").val("1");
@@ -206,7 +207,6 @@
             optForm.find("input[name='city']").val(city);
             optForm.find("input[name='region']").val(region);
             optForm.find("input[name='driverName']").val(driverName);
-            // optForm.find("input[name='tourDate']").val(tourDate);
             optForm.find("input[name='tourType']").val(tourType);
 
             optForm.submit();
@@ -215,7 +215,7 @@
 
         $("#add").on("click", function (e) {
             e.preventDefault();
-            listForm.attr("action", "/member/register");
+            listForm.attr("action", "/tour/register");
             listForm.submit();
         });
 
