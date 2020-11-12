@@ -16,14 +16,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
-import static java.lang.Integer.*;
+import static java.lang.Integer.parseInt;
 
 
 @Controller
@@ -62,7 +59,8 @@ public class TourController {
     }
 
     @GetMapping("/register")
-    public void register() {
+    public void register(@ModelAttribute("pageDto") TourPageDto pageDto,
+                         @ModelAttribute("tour") TourRegisterDto tourRegisterDto) {
         log.info("tour register...");
     }
 
@@ -72,6 +70,13 @@ public class TourController {
         Tour tour = dtoToTour(tourRegisterDto);
 
         tourService.register(tour);
+        return "redirect:/tour/list";
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam("id") Long id) {
+        tourService.deleteTour(id);
+
         return "redirect:/tour/list";
     }
 

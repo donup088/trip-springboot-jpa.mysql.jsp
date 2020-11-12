@@ -92,6 +92,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th>날짜 / 시간</th>
                     <th>고객</th>
                     <th>담당기사</th>
@@ -106,6 +107,7 @@
                 <tbody>
                 <c:forEach items="${tour.result.content}" var="tour">
                     <tr>
+                        <td><c:out value="${tour.id}"/></td>
                         <td><c:out value="${tour.tourDate}"/></td>
                         <td><a href="#"><c:out value="${tour.customer.name}"/></a></td>
                         <td><c:out value="${tour.driver.name}"/></td>
@@ -191,7 +193,8 @@
             optForm.find("input[name='tourDate']").val(tourDate);
 
             optForm.submit();
-        })
+        });
+
         $("#optForm #country, #optForm #count, #optForm #city, #optForm #region , #optForm #driverName,  #optForm #tourType").change(function (e) {
             e.preventDefault();
             var country = $('#country').find(":selected").val();
@@ -222,9 +225,9 @@
         $("#delete").on("click", function (e) {
             var str = "";
             e.preventDefault();
-            var deleteId = prompt("삭제할 user의 번호를 입력하세요.");
+            var deleteId = prompt("삭제할 tour의 번호를 입력하세요.");
             if (deleteId != null) {
-                listForm.attr("action", "/member/delete");
+                listForm.attr("action", "/tour/delete");
                 listForm.attr("method", "post");
                 str += "<input type='hidden' name='id'  value='" + deleteId + "'>";
                 listForm.append(str);

@@ -69,7 +69,7 @@
                         <td><c:out value="${members.phone}"/></td>
                         <td><c:out value="${members.email}"/></td>
                         <td><c:out value="${members.country}"/></td>
-                        <td><a href="#">2건</a></td>
+                        <td><a href="#"><c:out value="${members.tourCount}"/>건</a></td>
                         <td><a href="#">2건</a></td>
                     </tr>
                 </c:forEach>

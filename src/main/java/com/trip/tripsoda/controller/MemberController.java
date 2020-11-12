@@ -1,8 +1,8 @@
 package com.trip.tripsoda.controller;
 
 import com.trip.tripsoda.domain.Member;
-import com.trip.tripsoda.dto.MemberRegisterDto;
 import com.trip.tripsoda.dto.MemberPageDto;
+import com.trip.tripsoda.dto.MemberRegisterDto;
 import com.trip.tripsoda.dto.PageMaker;
 import com.trip.tripsoda.service.MemberService;
 import lombok.RequiredArgsConstructor;

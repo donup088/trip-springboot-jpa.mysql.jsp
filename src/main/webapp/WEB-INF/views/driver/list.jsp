@@ -69,7 +69,7 @@
                         <td><c:out value="${drivers.phone}"/></td>
                         <td><c:out value="${drivers.email}"/></td>
                         <td><c:out value="${drivers.country}"/></td>
-                        <td><a href="#">2건</a></td>
+                        <td><a href="#"><c:out value="${drivers.driverCount}"/></a></td>
                         <td><a href="#">2건</a></td>
                     </tr>
                 </c:forEach>

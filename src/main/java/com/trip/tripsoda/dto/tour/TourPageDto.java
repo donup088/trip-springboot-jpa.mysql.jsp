@@ -11,6 +11,7 @@ public class TourPageDto {
     private static final int DEFAULT_MAX_SIZE = 50;
 
     private int page;
+
     private int size;
 
     private String country;

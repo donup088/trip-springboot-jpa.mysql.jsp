@@ -11,7 +11,7 @@
         </div>
         <br>
         <ul class="nav nav-tabs nav-justified">
-            <li class="active"><a href="/trip/list">관광지 코드</a></li>
+            <li class="active"><a href="/tour/list">관광지 코드</a></li>
             <li><a href="#">지역 코드 관리</a></li>
         </ul>
         <div class="row">
@@ -143,12 +143,14 @@
 
             <div class="col-sm-6">
                 <div style="margin-top: 50px">
-                    <form id="back" action="/trip/list" method="get" style="display: inline">
+                    <form id="back" action="/tour/list" method="get" style="display: inline">
                         <input type="hidden" name="page" value="${pageDto.page}">
                         <input type="hidden" name="size" value="${pageDto.size}">
                         <input type="hidden" name="country" value="${pageDto.country}">
                         <input type="hidden" name="city" value="${pageDto.city}">
                         <input type="hidden" name="region" value="${pageDto.region}">
+                        <input type="hidden" name="tourType" value="${pageDto.tourType}">
+                        <input type="hidden" name="tourDate" value="${pageDto.tourDate}">
                         <button id="close" class="btn btn-default btn-lg pull-right">뒤로가기</button>
                     </form>
                     <button id="register" class="btn btn-default btn-lg pull-right">등록</button>
@@ -200,21 +202,6 @@
 
     .form-group {
         width: 550px;
-    }
-
-    .subResult {
-        display: flex;
-        flex-flow: row;
-
-    }
-
-    .subResult li {
-        list-style: none;
-    }
-
-    .subResult li img {
-        width: 120px;
-        height: 120px;
     }
 </style>
 <%@include file="../include/footer.jsp" %>
