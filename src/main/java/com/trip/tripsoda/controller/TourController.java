@@ -13,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.util.Date;
-
 
 @Controller
 @Slf4j
@@ -29,12 +27,9 @@ public class TourController {
     public void list(@ModelAttribute("pageDto") TourPageDto tourPageDto,
                      Model model) {
         log.info("tourPageDto: " + tourPageDto);
-        log.info("time" + tourPageDto.getTourDate());
-        String tourDate = null;
-        if (tourPageDto.getTourDate() != null) {
-            String[] split = tourPageDto.getTourDate().split(",");
-            tourDate = split[0];
-        }
+        log.info("time: " + tourPageDto.getTourDate());
+        String tourDate = formatTourDate(tourPageDto);
+        log.info("tourDate: "+tourDate);
 
         Pageable pageable = tourPageDto.makePageable();
 
@@ -49,5 +44,21 @@ public class TourController {
                 pageable);
 
         model.addAttribute("tour", new PageMaker<>(tours));
+    }
+
+
+    //tourDate로 넘어오는 데이터에 있는 ,를 없애고 날짜를 가져옴
+    private String formatTourDate(TourPageDto tourPageDto) {
+        String tourDate = "";
+        if (tourPageDto.getTourDate() != null) {
+            String date = tourPageDto.getTourDate();
+            String[] split = date.split(",");
+            for (String s : split) {
+                if (!s.equals("")) {
+                    tourDate = s;
+                }
+            }
+        }
+        return tourDate;
     }
 }

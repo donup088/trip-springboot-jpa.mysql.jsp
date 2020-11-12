@@ -24,7 +24,10 @@
             <div class="col-lg-12">
                 <form id="optForm" action="/tour/list" method="get" style="display: inline">
                     <div class="col-lg-12">
-                        <input type="date" id="tourDate" name="tourDate" style=" margin-bottom:10px">
+
+                        <input type="date" id="tourDate" name="tourDate" style=" margin-bottom:10px"
+                               value="<c:out value="${pageDto.tourDate}"/>">
+
                         <select id="tourType" style="margin-left:20px; margin-top: 10px; margin-bottom: 10px">
                             <option value="" <c:out value="${pageDto.tourType eq 'null' ? 'selected': ''}"/>>모든 투어
                             </option>
@@ -156,6 +159,10 @@
                 <input type="hidden" name="page" value="${tour.currentPageNum}">
                 <input type="hidden" name="size" value="${tour.currentPage.pageSize}">
                 <input type="hidden" name="country" value="${pageDto.country}">
+                <input type="hidden" name="city" value="${pageDto.city}">
+                <input type="hidden" name="region" value="${pageDto.region}">
+                <input type="hidden" name="tourType" value="${pageDto.tourType}">
+                <input type="hidden" name="tourDate" value="${pageDto.tourDate}">
             </form>
         </div>
     </div>
@@ -174,18 +181,23 @@
 
         $(".pagination a").on("click", function (e) {
             e.preventDefault();
-            listForm.find('[name="page"]').val($(this).attr('href'))
+            listForm.find('[name="page"]').val($(this).attr('href'));
             listForm.submit();
         });
+        $("#optForm #tourDate").change(function () {
+            var tourDate = $("#tourDate").val();
+            optForm.find("input[name='tourDate']").val(tourDate);
 
-        $("#optForm #country, #optForm #count, #optForm #city, #optForm #region , #optForm #driverName, #optForm #tourDate, #optForm #tourType").change(function (e) {
+            optForm.submit();
+        })
+        $("#optForm #country, #optForm #count, #optForm #city, #optForm #region , #optForm #driverName,  #optForm #tourType").change(function (e) {
             e.preventDefault();
             var country = $('#country').find(":selected").val();
             var size = $('#count').find(":selected").val();
             var city = $("#city").find(":selected").val();
             var region = $("#region").find(":selected").val();
             var driverName = $('#driverName').find(":selected").val();
-            var tourDate = $("#tourDate").val();
+            // var tourDate = $("#tourDate").val();
             var tourType = $("#tourType").find(":selected").val();
 
             optForm.find("input[name='page']").val("1");
@@ -194,7 +206,7 @@
             optForm.find("input[name='city']").val(city);
             optForm.find("input[name='region']").val(region);
             optForm.find("input[name='driverName']").val(driverName);
-            optForm.find("input[name='tourDate']").val(tourDate);
+            // optForm.find("input[name='tourDate']").val(tourDate);
             optForm.find("input[name='tourType']").val(tourType);
 
             optForm.submit();

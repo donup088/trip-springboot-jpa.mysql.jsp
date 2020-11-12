@@ -4,9 +4,6 @@ import lombok.Data;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 @Data
 public class TourPageDto {
     private static final int DEFAULT_MIN_SIZE = 1;

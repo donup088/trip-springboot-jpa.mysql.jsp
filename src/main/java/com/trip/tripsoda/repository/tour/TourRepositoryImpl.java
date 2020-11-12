@@ -9,11 +9,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import static com.trip.tripsoda.domain.tour.QTour.tour;
@@ -54,7 +51,6 @@ public class TourRepositoryImpl implements TourCustomRepository {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate dateTime = LocalDate.parse(tourDate, formatter);
             LocalDate nextDay = dateTime.plusDays(1);
-            System.out.println("dateTime = " + dateTime);
             builder.and(tour.tourDate.between(dateTime,nextDay));
         }
 

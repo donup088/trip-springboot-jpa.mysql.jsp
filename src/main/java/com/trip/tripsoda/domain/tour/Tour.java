@@ -6,8 +6,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -21,8 +19,6 @@ public class Tour {
     @Column(name = "tour_id")
     private Long id;
 
-    private LocalDate tourDate;
-
     private int personCount; //인원
 
     private int payment; //결제금액
@@ -34,6 +30,8 @@ public class Tour {
     private boolean finish;
 
     private String tourType; //all, taxi, other enum으로 줄 수 있는데 jsp 에서 enum 데이터 바인딩 하는 방법을 알아야함
+
+    private LocalDate tourDate;
 
     @Embedded
     private TourAddress address;
