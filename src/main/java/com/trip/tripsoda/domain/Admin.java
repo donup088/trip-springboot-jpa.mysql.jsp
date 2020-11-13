@@ -1,8 +1,11 @@
 package com.trip.tripsoda.domain;
 
+import com.trip.tripsoda.domain.notice.Notice;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -41,4 +44,7 @@ public class Admin {
     private String department;
 
     private String etc;
+
+    @OneToMany(mappedBy = "admin")
+    private List<Notice> notices=new ArrayList<>();
 }

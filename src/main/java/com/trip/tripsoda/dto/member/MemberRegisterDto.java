@@ -1,4 +1,4 @@
-package com.trip.tripsoda.dto;
+package com.trip.tripsoda.dto.member;
 
 import lombok.Data;
 

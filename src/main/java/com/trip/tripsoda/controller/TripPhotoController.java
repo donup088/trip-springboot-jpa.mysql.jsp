@@ -1,8 +1,8 @@
 package com.trip.tripsoda.controller;
 
 import com.trip.tripsoda.dto.FileDto;
-import com.trip.tripsoda.dto.TripDestinationRegisterDto;
-import com.trip.tripsoda.dto.TripPageDto;
+import com.trip.tripsoda.dto.trip.TripDestinationRegisterDto;
+import com.trip.tripsoda.dto.trip.TripPageDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;

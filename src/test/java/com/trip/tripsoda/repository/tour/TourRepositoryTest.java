@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @SpringBootTest
@@ -80,7 +81,7 @@ class TourRepositoryTest {
 
         for (int i = 0; i < 10; i++) {
             Tour tour = new Tour();
-            tour.setTourDate(LocalDateTime.of(2020,11,11,9,10));
+            tour.setTourDate(LocalDate.of(2020,11,11));
             tour.setCustomer(member);
             tour.setDriver(driver1);
             tour.setAddress(new TourAddress("K","서울","서울"));
@@ -95,7 +96,7 @@ class TourRepositoryTest {
 
         for (int i = 10; i < 20; i++) {
             Tour tour = new Tour();
-            tour.setTourDate(LocalDateTime.of(2020,11,10,10,30));
+            tour.setTourDate(LocalDate.of(2020,11,10));
             tour.setCustomer(member2);
             tour.setDriver(driver2);
             tour.setAddress(new TourAddress("J","도쿄","도쿄"));
@@ -110,7 +111,7 @@ class TourRepositoryTest {
 
         for (int i = 20; i < 30; i++) {
             Tour tour = new Tour();
-            tour.setTourDate(LocalDateTime.of(2020,11,12,12,30));
+            tour.setTourDate(LocalDate.of(2020,11,12));
             tour.setCustomer(member3);
             tour.setDriver(driver3);
             tour.setAddress(new TourAddress("C","베이징","베이징"));

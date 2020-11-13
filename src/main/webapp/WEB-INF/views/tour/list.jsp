@@ -225,7 +225,7 @@
         $("#delete").on("click", function (e) {
             var str = "";
             e.preventDefault();
-            var deleteId = prompt("삭제할 tour의 번호를 입력하세요.");
+            var deleteId = prompt("삭제할 투어의 번호를 입력하세요.");
             if (deleteId != null) {
                 listForm.attr("action", "/tour/delete");
                 listForm.attr("method", "post");

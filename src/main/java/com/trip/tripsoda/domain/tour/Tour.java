@@ -40,6 +40,8 @@ public class Tour {
 
     private String code;  //구매 코드
 
+    private String startTime;
+
     @Embedded
     private TourAddress address;
 

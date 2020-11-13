@@ -43,7 +43,7 @@
                 <a href="/tour/list">투어 관리</a>
             </li>
             <li>
-                <a href="#">공지사항</a>
+                <a href="/notice/list">공지사항</a>
             </li>
         </ul>
     </nav>

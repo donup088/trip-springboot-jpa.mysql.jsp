@@ -1,8 +1,8 @@
 package com.trip.tripsoda.controller;
 
 import com.trip.tripsoda.domain.dirver.Driver;
-import com.trip.tripsoda.dto.DriverRegisterDto;
-import com.trip.tripsoda.dto.MemberPageDto;
+import com.trip.tripsoda.dto.member.DriverRegisterDto;
+import com.trip.tripsoda.dto.member.MemberPageDto;
 import com.trip.tripsoda.dto.PageMaker;
 import com.trip.tripsoda.service.DriverService;
 import lombok.RequiredArgsConstructor;

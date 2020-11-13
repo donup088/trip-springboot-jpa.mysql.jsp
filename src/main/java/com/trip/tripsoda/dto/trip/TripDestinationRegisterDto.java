@@ -1,6 +1,7 @@
-package com.trip.tripsoda.dto;
+package com.trip.tripsoda.dto.trip;
 
 import com.trip.tripsoda.domain.trip.FavoriteTag;
+import com.trip.tripsoda.dto.FileDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

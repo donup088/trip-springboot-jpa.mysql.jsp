@@ -1,10 +1,10 @@
-package com.trip.tripsoda.dto;
+package com.trip.tripsoda.dto.member;
 
-import lombok.ToString;
+import lombok.Data;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-@ToString
+@Data
 public class MemberPageDto {
     private static final int DEFAULT_MIN_SIZE = 1;
     private static final int DEFAULT_SIZE = 10;
