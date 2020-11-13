@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class TripDestinationService {
 
     private final TripRepository tripRepository;
@@ -28,6 +29,7 @@ public class TripDestinationService {
         return tripRepository.findAll(country, address, city, size, pageable);
     }
 
+    @Transactional
     public void deleteTripDestination(Long id) {
         TripDestination tripDestination = tripRepository.findById(id).get();
         FavoriteTag tag = tripDestination.getTag();

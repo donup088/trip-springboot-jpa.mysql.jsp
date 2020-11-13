@@ -1,11 +1,14 @@
 package com.trip.tripsoda.repository.admin;
 
 import com.trip.tripsoda.domain.Admin;
+import com.trip.tripsoda.domain.notice.Notice;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @SpringBootTest
 @Rollback(value = false)
@@ -44,6 +47,15 @@ class AdminRepositoryTest {
             admin.setEmail("admin" + i + "@test.com");
             admin.setCountry("CHINA");
             adminRepository.save(admin);
+        }
+    }
+
+    @Test
+    public void 공지사항조회테스트(){
+        Admin admin = adminRepository.findByUserid("admin58");
+        List<Notice> notices = admin.getNotices();
+        for (Notice notice : notices) {
+            System.out.println("notice = " + notice);
         }
     }
 }

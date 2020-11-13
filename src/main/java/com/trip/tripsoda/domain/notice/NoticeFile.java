@@ -25,6 +25,6 @@ public class NoticeFile {
     private boolean fileType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
-    private Admin admin;
+    @JoinColumn(name = "notice_id")
+    private Notice notice;
 }

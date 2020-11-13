@@ -28,4 +28,8 @@ public class AdminService {
     public void deleteAdmin(Long id) {
         adminRepository.deleteById(id);
     }
+
+    public Admin findAdminToNotice(String userid) {
+        return adminRepository.findByUserid(userid);
+    }
 }

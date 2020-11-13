@@ -153,7 +153,7 @@
 
         $("#add").on("click", function (e) {
             e.preventDefault();
-            listForm.attr("action", "/member/register");
+            listForm.attr("action", "/notice/register");
             listForm.submit();
         });
 

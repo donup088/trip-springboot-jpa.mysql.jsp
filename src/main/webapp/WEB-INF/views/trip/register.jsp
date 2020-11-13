@@ -184,6 +184,7 @@
             str+="<input type='hidden' name='fileDtos[0].uuid' value='"+mainDiv.data("uuid")+"'>";
             str+="<input type='hidden' name='fileDtos[0].uploadPath' value='"+mainDiv.data("path")+"'>";
             str+="<input type='hidden' name='fileDtos[0].image' value='"+mainDiv.data("type")+"'>";
+
             $(".subResult li img").each(function (i, obj) {
                 var jobj = $(obj);
                 console.log(jobj.data("filename"));

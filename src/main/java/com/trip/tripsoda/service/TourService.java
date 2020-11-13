@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class TourService {
 
     private final TourRepository tourRepository;
