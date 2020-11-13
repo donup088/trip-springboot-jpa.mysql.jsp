@@ -30,22 +30,6 @@ public class TripDestinationService {
     }
 
     @Transactional
-    public void deleteTripDestination(Long id) {
-        TripDestination tripDestination = tripRepository.findById(id).get();
-        FavoriteTag tag = tripDestination.getTag();
-        List<TripPhoto> tripPhoto = tripDestination.getTripPhoto();
-        if(tag!=null){
-            favoriteTagRepository.deleteById(tag.getId());
-        }
-        if(tripPhoto!=null) {
-            for (TripPhoto photo : tripPhoto) {
-                tripPhotoRepository.deleteById(photo.getUuid());
-            }
-        }
-        tripRepository.deleteById(id);
-    }
-
-    @Transactional
     public void register(TripDestination tripDestination) {
         TripDestination saveTripDestination = tripRepository.save(tripDestination);
         FavoriteTag tag = tripDestination.getTag();
@@ -59,5 +43,21 @@ public class TripDestinationService {
                 tripPhotoRepository.save(tripPhoto);
             });
         }
+    }
+
+    @Transactional
+    public void deleteTripDestination(Long id) {
+        TripDestination tripDestination = tripRepository.findById(id).get();
+        FavoriteTag tag = tripDestination.getTag();
+        List<TripPhoto> tripPhoto = tripDestination.getTripPhoto();
+        if(tag!=null){
+            favoriteTagRepository.deleteById(tag.getId());
+        }
+        if(tripPhoto!=null) {
+            for (TripPhoto photo : tripPhoto) {
+                tripPhotoRepository.deleteById(photo.getUuid());
+            }
+        }
+        tripRepository.deleteById(id);
     }
 }
