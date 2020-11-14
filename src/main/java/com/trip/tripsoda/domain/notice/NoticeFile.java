@@ -1,6 +1,6 @@
 package com.trip.tripsoda.domain.notice;
 
-import com.trip.tripsoda.domain.Admin;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@ToString(exclude = {"admin"})
+@ToString(exclude = {"notice"})
 public class NoticeFile {
     @Id
     @Column(name = "trip_photo_uuid", nullable = false)
@@ -26,5 +26,6 @@ public class NoticeFile {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "notice_id")
+    @JsonIgnore
     private Notice notice;
 }

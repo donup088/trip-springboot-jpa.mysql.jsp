@@ -50,4 +50,12 @@ public class NoticeService {
         }
         noticeRepository.deleteById(id);
     }
+
+    @Transactional
+    public Notice getNotice(Long id) {
+        Notice notice = noticeRepository.findById(id).get();
+        notice.setCount(notice.getCount()+1);
+
+        return notice;
+    }
 }

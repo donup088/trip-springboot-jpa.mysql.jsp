@@ -52,7 +52,7 @@
                         <td><c:out value="${notice.id}"/></td>
                         <td><a href="#"><c:out value="${notice.admin.userid}"/></a></td>
                         <td><c:out value="${notice.createdDate}"/></td>
-                        <td><a href="#"><c:out value="${notice.title}"/></a></td>
+                        <td><a href="/notice/get?id=<c:out value="${notice.id}"/>"><c:out value="${notice.title}"/></a></td>
                         <td><c:out value="${notice.count}"/></td>
                         <td>
                             <c:choose>
@@ -132,6 +132,13 @@
     $(document).ready(function () {
         var listForm = $("#list");
         optForm.find("input[name='userid']").val("");
+        $("#title").on("click", function (e) {
+            var str = "";
+            listForm.attr("method", "get")
+            listForm.attr("action", "/notice/get")
+            listForm.append(str);
+            listForm.submit();
+        })
 
         $(".pagination a").on("click", function (e) {
             e.preventDefault();

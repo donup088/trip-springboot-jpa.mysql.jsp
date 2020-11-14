@@ -57,10 +57,16 @@ public class NoticeController {
     }
 
     @PostMapping("/delete")
-    public String delete(@RequestParam("id") Long id){
+    public String delete(@RequestParam("id") Long id) {
         noticeService.delete(id);
 
         return "redirect:/notice/list";
+    }
+
+    @GetMapping("/get")
+    public void get(@RequestParam("id") Long id, @ModelAttribute("pageDto") NoticePageDto noticePageDto, Model model) {
+        Notice notice = noticeService.getNotice(id);
+        model.addAttribute("notice", notice);
     }
 
     private Notice dtoToNotice(NoticeRegisterDto noticeRegisterDto) {
