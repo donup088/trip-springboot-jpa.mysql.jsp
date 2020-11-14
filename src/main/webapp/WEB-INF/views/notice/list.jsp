@@ -52,7 +52,8 @@
                         <td><c:out value="${notice.id}"/></td>
                         <td><a href="#"><c:out value="${notice.admin.userid}"/></a></td>
                         <td><c:out value="${notice.createdDate}"/></td>
-                        <td><a href="/notice/get?id=<c:out value="${notice.id}"/>"><c:out value="${notice.title}"/></a></td>
+                        <td><a href="/notice/get?id=<c:out value="${notice.id}"/>">
+                            <c:out value="${notice.title}"/></a></td>
                         <td><c:out value="${notice.count}"/></td>
                         <td>
                             <c:choose>

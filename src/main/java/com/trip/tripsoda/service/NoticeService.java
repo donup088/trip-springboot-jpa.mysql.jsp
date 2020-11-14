@@ -2,6 +2,7 @@ package com.trip.tripsoda.service;
 
 import com.trip.tripsoda.domain.notice.Notice;
 import com.trip.tripsoda.domain.notice.NoticeFile;
+import com.trip.tripsoda.dto.notice.NoticeRegisterDto;
 import com.trip.tripsoda.repository.notice.NoticeFileRepository;
 import com.trip.tripsoda.repository.notice.NoticeRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class NoticeService {
     public void delete(Long id) {
         Notice notice = noticeRepository.findById(id).get();
         List<NoticeFile> noticeFile = notice.getNoticeFile();
-        if(noticeFile!=null) {
+        if (noticeFile != null) {
             for (NoticeFile file : noticeFile) {
                 noticeFileRepository.deleteById(file.getUuid());
             }
@@ -52,10 +53,33 @@ public class NoticeService {
     }
 
     @Transactional
-    public Notice getNotice(Long id) {
+    public Notice getNoticeAndCountUp(Long id) {
         Notice notice = noticeRepository.findById(id).get();
-        notice.setCount(notice.getCount()+1);
+        notice.setCount(notice.getCount() + 1);
 
         return notice;
+    }
+
+    public Notice getNotice(Long id) {
+        return noticeRepository.findById(id).get();
+    }
+
+    @Transactional
+    public void update(Long id, NoticeRegisterDto noticeRegisterDto, List<NoticeFile> noticeFiles) {
+        Notice notice = noticeRepository.findById(id).get();
+        List<NoticeFile> findNoticeFile = notice.getNoticeFile();
+        if (findNoticeFile != null) {
+            for (NoticeFile file : findNoticeFile) {
+                noticeFileRepository.deleteById(file.getUuid());
+            }
+        }
+        for (NoticeFile file : noticeFiles) {
+            file.setNotice(notice);
+            noticeFileRepository.save(file);
+        }
+        notice.setTitle(noticeRegisterDto.getTitle());
+        notice.setSecret(noticeRegisterDto.isSecret());
+        notice.setContent(noticeRegisterDto.getContent());
+        notice.setTop(noticeRegisterDto.isTop());
     }
 }

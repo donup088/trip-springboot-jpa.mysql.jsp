@@ -40,10 +40,10 @@
 
                                 <div class="form-group">
                                     <label>공개여부</label>
-                                    <select size="1" class="form-control">
-                                        <option>공개</option>
-                                        <option>비공개</option>
-                                    </select>
+                                    <div class="form-control">
+                                        <input type="radio" name="secret" value="false">공개
+                                        <input type="radio" name="secret" value="true">비공개
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>등록자</label>

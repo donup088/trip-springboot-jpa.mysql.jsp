@@ -65,8 +65,28 @@ public class NoticeController {
 
     @GetMapping("/get")
     public void get(@RequestParam("id") Long id, @ModelAttribute("pageDto") NoticePageDto noticePageDto, Model model) {
-        Notice notice = noticeService.getNotice(id);
+        Notice notice = noticeService.getNoticeAndCountUp(id);
         model.addAttribute("notice", notice);
+    }
+
+    @GetMapping("/modify")
+    public void modify(@RequestParam("id") Long id,
+                       @ModelAttribute("pageDto") NoticePageDto noticePageDto,
+                       Model model) {
+        log.info("modify notice id: " + id);
+
+        model.addAttribute("notice", noticeService.getNotice(id));
+    }
+
+    @PostMapping("/modify")
+    public String modify(@RequestParam("id") Long id,
+                         NoticeRegisterDto noticeRegisterDto) {
+
+        log.info("modify: " + noticeRegisterDto);
+        List<NoticeFile> noticeFiles = dtoToNoticeFile(noticeRegisterDto.getFileDtos());
+        noticeService.update(id,noticeRegisterDto,noticeFiles);
+
+        return "redirect:/notice/list";
     }
 
     private Notice dtoToNotice(NoticeRegisterDto noticeRegisterDto) {

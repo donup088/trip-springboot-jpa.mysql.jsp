@@ -4,7 +4,7 @@
 <div class="col-sm-9 page" style="height: 100%">
     <div class="row" style=height:100%>
         <div class="container-fluid">
-            <p>홈 > 공지사항 > 공지사항 관리 > 조회</p>
+            <p>홈 > 공지사항 > 공지사항 관리 > 조회 > 수정</p>
         </div>
         <div class="col-lg-12">
             <h3 class="page-header" style="color: gray">공지사항 및 기타</h3>
@@ -16,9 +16,9 @@
             <li><a href="#">문의사항 관리</a></li>
         </ul>
         <div class="container">
-            <form id="close" action="/notice/list" method="get">
+            <form id="close">
                 <div style="margin-top: 50px;">
-                    <button id="closeBtn" class="btn btn-default-lg pull-right" style="width: 200px">닫기</button>
+                    <button id="closeBtn" class="btn btn-default-lg pull-right" style="width: 200px">뒤로 가기</button>
                     <button id="updateBtn" class="btn btn-default-lg pull-right"
                             style="width: 200px;margin-right: 100px">
                         수정
@@ -32,34 +32,36 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <form>
+                            <form role="form" action="/notice/modify" method="post" id="updateForm">
                                 <div class="form-group">
                                     <label>제목</label>
-                                    <input class="form-control" name="title" readonly="readonly"
-                                           value="<c:out value="${notice.title}"/>">
+                                    <input class="form-control" name="title" value="<c:out value="${notice.title}"/>">
                                 </div>
 
                                 <div class="form-group">
                                     <label>공개여부</label>
-                                    <div class="form-control" readonly="readonly">
-                                        <c:choose>
-                                            <c:when test="${notice.secret}">공개</c:when>
-                                            <c:otherwise>비공개</c:otherwise>
-                                        </c:choose>
+                                    <div class="form-control">
+                                        <input type="radio" name="secret" value="false">공개
+                                        <input type="radio" name="secret" value="true">비공개
+
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>등록자</label>
-                                    <input class="form-control" name="adminDto.userid" readonly="readonly"
-                                           value="<c:out value="${notice.admin.userid}"/>">
+                                    <input class="form-control" name="adminDto.userid"
+                                           value="<c:out value="${notice.admin.userid}"/>" readonly="readonly">
                                 </div>
 
                                 <div class="form-group">
                                     <label>첨부파일</label>
                                     <div class="form-control">
+                                        <label id="upload" for="noticeFile" class=" pull-right">
+                                            파일 등록
+                                        </label>
                                         <div id="uploadResult">
 
                                         </div>
+                                        <input type="file" id="noticeFile" multiple>
                                     </div>
                                 </div>
 
@@ -68,18 +70,22 @@
                                     <div class="form-control">
                                         상단 노출
                                         <c:choose>
-                                            <c:when test="${notice.top}"><input type="checkbox" name="top" value="true"
-                                                                                checked onclick="return false"></c:when>
-                                            <c:otherwise><input type="checkbox" name="top" value="true"
-                                                                onclick="return false"></c:otherwise>
+                                            <c:when test="${notice.top}">
+                                                <input type="checkbox" name="top" value="true" checked>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="checkbox" name="top" value="true">
+                                            </c:otherwise>
                                         </c:choose>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label>내용</label>
-                                    <textarea class="form-control" rows="5" name="content" readonly="readonly"><c:out
+                                    <textarea class="form-control" rows="5" name="content"><c:out
                                             value="${notice.content}"/></textarea>
                                 </div>
+                                <input type="hidden" name="id" value="${notice.id}">
                             </form>
                         </div>
                     </div>
@@ -92,31 +98,68 @@
 </body>
 <script>
     $(document).ready(function () {
+        var updateForm = $("#updateForm");
+
+        $("#updateBtn").on("click", function (e) {
+            e.preventDefault();
+            var str = "";
+
+            $("#uploadResult li").each(function (i, obj) {
+                var jobj = $(obj);
+
+                str += "<input type='hidden' name='fileDtos[" + i + "].fileName' value='" + jobj.data("filename") + "'>";
+                str += "<input type='hidden' name='fileDtos[" + i + "].uuid' value='" + jobj.data("uuid") + "'>";
+                str += "<input type='hidden' name='fileDtos[" + i + "].uploadPath' value='" + jobj.data("path") + "'>";
+                str += "<input type='hidden' name='fileDtos[" + i + "].image' value='" + jobj.data("type") + "'>";
+            });
+
+            updateForm.append(str).submit();
+        });
+
+        function showNoticeFile(result) {
+            var uploadResult = $("#uploadResult");
+            $(result).each(function (i, obj) {
+                var str = "";
+                str += "<li data-path='" + obj.uploadPath + "'";
+                str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                str += obj.fileName;
+                str += "</li>&ensp;";
+                uploadResult.append(str);
+            });
+        }
+
+        $("#noticeFile").change(function (e) {
+            var formData = new FormData();
+            var inputFile = $("#noticeFile");
+            var files = inputFile[0].files;
+            for (var i = 0; i < files.length; i++) {
+                formData.append("uploadFile", files[i]);
+            }
+
+            $.ajax({
+                url: '/upload',
+                processData: false,
+                contentType: false,
+                data: formData,
+                type: 'POST',
+                success: function (result) {
+                    showNoticeFile(result);
+                    alert("success");
+                }
+            });
+        });
+
         var noticeId = [[${notice.id}]];
         var id=Number(noticeId);
-        (function () {
-            $.getJSON("/notice/getFileList", {id: id}, function (result) {
-                var str = "";
-                $(result).each(function (i, obj) {
-                    str += "<li data-path='" + obj.uploadPath + "'";
-                    str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
-                    str += obj.fileName;
-                    str += "</li>&ensp;";
-                });
-                $("#uploadResult").html(str);
-            });
-        })();
 
-        $("#updateBtn").on("click",function (e) {
-            e.preventDefault();
+        $("#closeBtn").on("click",function (e) {
+            var closeForm=$("#close");
             var str="";
-            var form=$("#close");
-            console.log(id)
-            form.attr("action","/notice/modify");
+
+            closeForm.attr("action","/notice/get");
             str += "<input type='hidden' name='id'  value='" + id + "'>";
-            form.attr("method","get");
-            form.append(str).submit();
-        });
+            closeForm.append(str).append();
+        })
     })
 </script>
 
